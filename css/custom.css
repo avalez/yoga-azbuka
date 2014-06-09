@@ -1,0 +1,105 @@
+@import url('/css/candara/candara.css');
+
+/* Large desktop */
+@media (min-width: 980px) { 
+ .linediv-l {
+   border-right: 1px white solid;
+  }
+ .linediv-r {
+   border-left: 1px white solid;
+ }
+}
+
+/* Landscape phones and down */
+@media (max-width: 600px) { 
+ .hero-unit {
+   padding: 0;
+ }
+ .copy {
+   padding: 2.5% 10%;
+ }
+ .linediv-l {
+   border-bottom: 1px white solid;
+ }
+ .linediv-r {
+   border-top: 1px white solid;
+ }
+ .info {
+   padding: 0 10px;
+ }
+}
+@media (min-width: 1200px) { 
+  .container, .navbar-fixed-top .container {
+    width: 940px;
+  }
+}
+body {
+  color: #005194;
+  font-family: Candara;
+}
+.btn-primary {
+  color: #005194;
+  background-color: #E8C602;
+}
+.btn-primary:hover, .btn-primary:active {
+  color: #005194;
+  background-color: #FCD606;
+}
+.span8, .span6 {
+  margin-bottom: 20px;
+}
+/* ------------------------------------------------------------------------------
+  H E A D E R
+--------------------------------------------------------------------------------- */
+.navbar-fixed-top {
+  position: static;    
+  margin-bottom: 20px;
+}
+header {
+  margin-top: 20px;
+}
+.hero-unit {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  padding-bottom: 40px;
+}
+/* ------------------------------------------------------------------------------
+  F O O T E R
+--------------------------------------------------------------------------------- */
+.footer {
+  padding: 10px;
+  margin: 30px 0 0 0;
+  font-size: 14px;
+  color: inherit;
+  background-color: #ecf0f1;
+}
+.footer-list ul {
+  list-style: none;
+  margin: 0;
+}
+.footer-list ul li {
+  line-height: 25px;
+}
+/* ------------------------------------------------------------------------------
+  M I S C
+--------------------------------------------------------------------------------- */
+[class^="icon-"] {
+  padding: 0 10px;
+}
+.atss {
+  top: 250px;
+}
+ul.nostyle, ul.nostyle li {
+  background: none repeat scroll 0 0 transparent;
+  list-style: none outside none;
+  margin: 0 -2px;
+}
+ul.nostyle li {
+  display: inline;
+  float: left;
+  padding: 5px;
+}
+#main {
+  min-height: 250px;
+}
