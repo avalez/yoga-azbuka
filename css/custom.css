@@ -1,4 +1,4 @@
-@import url('candara/candara.css');
+@import url('/css/candara/candara.css');
 
 /* Large desktop */
 @media (min-width: 980px) { 
@@ -41,7 +41,7 @@ body {
   color: #005194;
   background-color: #E8C602;
 }
-.btn-primary:hover, .btn-primary:active {
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   color: #005194;
   background-color: #FCD606;
 }

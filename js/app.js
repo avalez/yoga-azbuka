@@ -31,9 +31,9 @@ $(function() {
         crossDomain: true,
         success: function (data, status) {
             if (data == 'OK') {
-                $form.parent().html("You should recieve license to specified email shortly.")
+                $form.parent().html("Спасибо за Вашу заявку")
             } else {
-                $form.parent().html("Error: " + data);
+                $form.parent().html("Ошибка: " + data);
             }
         },
         error: function (xOptions, textStatus) {
