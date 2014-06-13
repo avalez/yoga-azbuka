@@ -10,6 +10,12 @@
  }
 }
 
+@media (max-width: 800px) { 
+  header h1 {
+    width: 300px;
+  }
+}
+
 /* Landscape phones and down */
 @media (max-width: 600px) { 
  .hero-unit {
@@ -36,6 +42,7 @@
 body {
   color: #005194;
   font-family: Candara;
+  background: #ffffff url("/images/bg.png") no-repeat center top;
 }
 .btn-primary {
   color: #005194;
@@ -56,7 +63,7 @@ body {
   margin-bottom: 20px;
 }
 header {
-  margin-top: 20px;
+  margin: 70px auto;
 }
 .hero-unit {
   -webkit-border-radius: 0px;
