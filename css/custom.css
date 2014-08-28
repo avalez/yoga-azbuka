@@ -42,7 +42,9 @@
 body {
   color: #005194;
   font-family: Candara;
-  background: #ffffff url("/images/bg.png") no-repeat center top;
+  background: #ffffff url("/images/header.png") no-repeat center top;
+  font-size: 16px;
+  line-height: 24px;
 }
 .btn-primary {
   color: #005194;
@@ -52,8 +54,8 @@ body {
   color: #005194;
   background-color: #FCD606;
 }
-.span8, .span6 {
-  margin-bottom: 20px;
+.row-fluid {
+  margin: 40px;
 }
 /* ------------------------------------------------------------------------------
   H E A D E R
@@ -63,13 +65,16 @@ body {
   margin-bottom: 20px;
 }
 header {
-  margin: 70px auto;
+  margin: 60px auto;
 }
 .hero-unit {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
   padding-bottom: 40px;
+}
+li {
+  line-height: 30px;
 }
 /* ------------------------------------------------------------------------------
   F O O T E R
