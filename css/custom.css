@@ -71,6 +71,8 @@ header {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+  padding: 0;
+  margin-bottom: -20px;
 }
 li {
   line-height: 30px;
