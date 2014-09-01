@@ -1,4 +1,16 @@
 $(function() {
+  var keen = new Keen({
+    projectId: "5404e1400727190dcd000006",
+    writeKey: "8d07d6b532819bbed7f278ed1a214d9f13adc73a93900bf93042ce598684cd383ddb3cd943348de232b6eeef3c504ec0de70797003747fd0223b1ba86ebcd0dfe58b42698d39161368be09ee37514c5152da505cd619caa7dcc960dfd30c0d11ccd496f8b529a5314efc34bd9ba94ccf"
+  });
+
+  var share = {
+    referrer: document.referrer,
+    keen: {
+      timestamp: new Date().toISOString()
+    }
+  };
+    
   var $fbShare = $('#fb-share');
   $fbShare.click(function() {
     FB.ui({
@@ -10,6 +22,7 @@ $(function() {
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       if (response && response.post_id) {
+        share.keen.post_id = reponse.post_id;
         $fbShare.parent().append(
           $("<button/>").attr({
             class: "btn btn-success"
@@ -19,6 +32,7 @@ $(function() {
             style: "color: #fff"
           }).text('Скачать раскраску')));
       }
+      keen.addEvent("shares", share);
     });
   });
 
