@@ -22,7 +22,7 @@ $(function() {
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       if (response && response.post_id) {
-        share.keen.post_id = reponse.post_id;
+        share.keen.post_id = response.post_id;
         $fbShare.parent().append(
           $("<button/>").attr({
             class: "btn btn-success"
