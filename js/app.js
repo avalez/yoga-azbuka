@@ -1,4 +1,13 @@
 $(function() {
+  $('#fb-share').click(function() {
+    FB.ui({
+      method: 'share',
+      href: 'http://www.yoga-azbuka.ru/'
+    }, function(response) {
+      console.log(response);
+    });
+  });
+
   $('#ri-grid').gridrotator({
     w1024: {rows: 2, columns: 3},
     w768 : {rows: 2, columns: 3},
