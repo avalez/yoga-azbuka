@@ -1,5 +1,6 @@
 $(function() {
-  $('#fb-share').click(function() {
+  var $fbShare = $('#fb-share');
+  $fbShare.click(function() {
     FB.ui({
       method: 'feed',
       name: 'Йога Азбука для детей',
@@ -8,7 +9,10 @@ $(function() {
       caption: 'Плакат и расраска по занятию йогой с азбукой для детей',
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
-      console.log(response);
+      $("<iframe/>").attr({
+        src: "/images/starbig.jpg",
+        style: "visibility:hidden;display:none"
+      }).appendTo($fbShare);
     });
   });
 
