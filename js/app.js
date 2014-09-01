@@ -1,8 +1,12 @@
 $(function() {
   $('#fb-share').click(function() {
     FB.ui({
-      method: 'share',
-      href: 'http://www.yoga-azbuka.ru/'
+      method: 'feed',
+      name: 'Йога Азбука для детей',
+      link: 'http://www.yoga-azbuka.ru/',
+      picture: 'http://www.yoga-azbuka.ru/images/cards-sample.jpg',
+      caption: 'Плакат и расраска по занятию йогой с азбукой для детей',
+      description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       console.log(response);
     });
