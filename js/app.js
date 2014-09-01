@@ -10,12 +10,14 @@ $(function() {
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       if (response && response.post_id) {
-        $("<a/>").attr({
-          class: "btn btn-link",
-          href: "/images/starbig.jpg",
-          download: "startbig.jpg",
-          style: "color: #02689c"
-        }).appendTo($fbShare.parent()).text('Скачать раскраску');
+        $fbShare.parent().append(
+          $("<button/>").attr({
+            class: "btn btn-success"
+          }).append($("<a/>").attr({
+            href: "/images/starbig.jpg",
+            download: "startbig.jpg",
+            style: "color: #fff"
+          }).text('Скачать раскраску')));
       }
     });
   });
