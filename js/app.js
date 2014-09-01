@@ -9,10 +9,14 @@ $(function() {
       caption: 'Плакат и расраска по занятию йогой с азбукой для детей',
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
-      $("<iframe/>").attr({
-        src: "/images/starbig.jpg",
-        style: "visibility:hidden;display:none"
-      }).appendTo($fbShare);
+      if (response && response.post_id) {
+        $("<a/>").attr({
+          class: "btn btn-link",
+          href: "/images/starbig.jpg",
+          download: "startbig.jpg",
+          style: "color: #02689c"
+        }).appendTo($fbShare.parent()).text('Скачать раскраску');
+      }
     });
   });
 
