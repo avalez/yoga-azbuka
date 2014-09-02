@@ -11,6 +11,35 @@ $(function() {
     }
   };
 
+  var $fbFeed = $('#fb-feed');
+  $fbFeed.click(function(e) {
+    e.preventDefault();
+    FB.ui({
+      method: 'feed',
+      name: 'Йога Азбука для детей',
+      link: 'http://www.yoga-azbuka.ru/',
+      picture: 'http://www.yoga-azbuka.ru/images/cards-sample.jpg',
+      caption: 'Плакат и расраска по занятию йогой с азбукой для детей',
+      description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.',
+      redirect_uri: 'http://www.yoga-azbuka.ru/'
+    }, function(response) {
+      if (response && response.post_id) {
+        if ($('#download')[0]) return;
+        share.post_id = response.post_id;
+        $fbFeed.parent().append(
+          $("<button/>").attr({
+            class: "btn btn-success"
+          }).append($("<a/>").attr({
+            href: "/images/starbig.jpg",
+            download: "startbig.jpg",
+            style: "color: #fff"
+          }).text('Скачать раскраску')));
+        ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
+      }
+      keen.addEvent("shares", share);
+    });
+  });
+
   var $fbShare = $('#fb-share');
   $fbShare.click(function(e) {
     e.preventDefault();
