@@ -19,7 +19,7 @@ $(function() {
       href: 'http://www.yoga-azbuka.ru/',
     }, function(response) {
       if (response && !response.error_code) {
-        return if ($('#download')[0]);
+        if ($('#download')[0]) return;
         $fbShare.parent().append(
           $("<button/>").attr({
             class: "btn btn-success"
