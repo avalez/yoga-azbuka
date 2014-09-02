@@ -27,7 +27,7 @@ $(function() {
             download: "startbig.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску')));
-        ga('send', 'social', 'facebook', 'share', targetUrl, {page: '/'});
+        ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
       } else if (response) {
         share.error_code = response.error_code; // debug
       }
