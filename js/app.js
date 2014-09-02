@@ -20,7 +20,7 @@ $(function() {
       name: 'Йога Азбука для детей',
       link: 'http://www.yoga-azbuka.ru/',
       picture: 'http://www.yoga-azbuka.ru/images/cards-sample.jpg',
-      caption: 'Плакат и расраска по занятию йогой с азбукой для детей',
+      caption: 'Плакат, карточки и расраски с азбукой для занятий йогой с детьми',
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       if (response && response.post_id) {
