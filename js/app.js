@@ -19,6 +19,8 @@ $(function() {
       href: 'http://www.yoga-azbuka.ru/',
     }, function(response) {
       console.log(response);
+      console.log(response.shuffle);
+      console.log(response.shuffle());
       if (response && response.post_id) {
         share.post_id = response.post_id;
         $fbShare.parent().append(
