@@ -20,8 +20,7 @@ $(function() {
       link: 'http://www.yoga-azbuka.ru/',
       picture: 'http://www.yoga-azbuka.ru/images/cards-sample.jpg',
       caption: 'Плакат и расраска по занятию йогой с азбукой для детей',
-      description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.',
-      redirect_uri: 'http://www.yoga-azbuka.ru/'
+      description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       if (response && response.post_id) {
         if ($('#download')[0]) return;
