@@ -11,6 +11,7 @@ $(function() {
     }
   };
 
+  // http://stackoverflow.com/questions/23116001/facebook-like-and-share-button-with-callback
   var $fbFeed = $('#fb-feed');
   $fbFeed.click(function(e) {
     e.preventDefault();
