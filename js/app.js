@@ -59,6 +59,11 @@ $(function() {
             style: "color: #fff"
           }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
+        ga('send', 'event', {
+          'eventCategory': 'social',
+          'eventAction': 'facebook',
+          'eventLabel': 'share'
+        }); 
       } else if (response) {
         share.error_code = response.error_code; // debug
       }
@@ -86,6 +91,10 @@ $(function() {
       if (submitted) {
         return;
       }
+      ga('send', 'event', {
+        'eventCategory': 'order',
+        'eventAction': 'create' // TODO: quote
+      }); 
       submitted = true;
       loading(true);
       $.ajax({
