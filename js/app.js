@@ -19,10 +19,12 @@ $(function() {
       href: 'http://www.yoga-azbuka.ru/',
     }, function(response) {
       if (response && !response.error_code) {
+        return if ($('#download')[0]);
         $fbShare.parent().append(
           $("<button/>").attr({
             class: "btn btn-success"
           }).append($("<a/>").attr({
+            id: "download",
             href: "/images/starbig.jpg",
             download: "startbig.jpg",
             style: "color: #fff"
