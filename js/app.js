@@ -18,11 +18,7 @@ $(function() {
       method: 'share',
       href: 'http://www.yoga-azbuka.ru/',
     }, function(response) {
-      console.log(response);
-      console.log(response.shuffle);
-      console.log(response.shuffle());
-      if (response && response.post_id) {
-        share.post_id = response.post_id;
+      if (response && !response.error_code) {
         $fbShare.parent().append(
           $("<button/>").attr({
             class: "btn btn-success"
@@ -31,6 +27,9 @@ $(function() {
             download: "startbig.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску')));
+        ga('send', 'social', 'facebook', 'share', targetUrl, {page: '/'});
+      } else if (response) {
+        share.error_code = response.error_code; // debug
       }
       keen.addEvent("shares", share);
     });
