@@ -35,6 +35,7 @@ $(function() {
             style: "color: #fff"
           }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
+        ga('send', 'event', 'social', 'facebook', 'share');
       }
       keen.addEvent("shares", share);
     });
@@ -59,6 +60,7 @@ $(function() {
             style: "color: #fff"
           }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
+        ga('send', 'event', 'social', 'facebook', 'share');
       } else if (response) {
         share.error_code = response.error_code; // debug
       }
