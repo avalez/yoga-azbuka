@@ -91,6 +91,12 @@ $(function() {
       ga('send', 'event', 'order', 'create'); 
       submitted = true;
       loading(true);
+      var fullName = $form.find('input[name="full_name"]').val();
+      var names = fullName.split(/[\s,]+/);
+      $form.find('input[name="first_name"]').val(names[0]);
+      if (names.length > 1) {
+        $form.find('input[name="last_name"]').val(names[1]);
+      }
       $.ajax({
         url: form.action,
         cache: false,
