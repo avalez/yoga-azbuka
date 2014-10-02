@@ -1,0 +1,33 @@
+{
+	"template_dir": "templates", 
+	"content_dir": "contents",
+	"output_dir": "output",
+
+	"server": { 
+		"port": 9009
+	},
+
+	"bundles": {
+		"/css/all.css": [
+			"/css/custom.css"
+		],
+		"/js/all.js": [
+			"/js/app.js"
+		]	
+	},
+
+    "plugins": {
+        "content_handler": "./lib/rest_content_handler",
+        "publishers": {
+            "git_strategy": "./lib/punch-git-publisher.js" 
+        }
+    },
+
+    "publish": {
+        "strategy": "git_strategy",
+        "options": {
+            "repo_url": "git@github.com:avalez/yoga-azbuka",
+            "branch": "gh-pages"
+        }
+	}
+}
