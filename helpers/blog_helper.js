@@ -25,6 +25,9 @@ var fetch_content = function(callback) {
             var recent_posts_list = all_posts.length > homepage_posts ? all_posts.slice(all_posts.length - homepage_posts) : all_posts;
 
             _.each(all_posts, function(post_contents) {
+                if (!post_contents.labels || post_contents.labels.indexOf("yoga-azbuka") == -1) {
+                    return;
+                }
 
                 var post_paras = post_contents.content.replace(/\n/g, " ").match(/(<p[^>]*>.*?<\/p>)/g);
                 if (!post_paras) {
