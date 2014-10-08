@@ -19,12 +19,16 @@
       <button class="btn btn-success" title="Перейти к форме заказа" onclick="location = '#order'">Заказать</button>
     </div>
     <div class="span6">
-      <a data-toggle="lightbox" href="#demoLightbox"><img src="/images/poster.png" title="ПЛАКАТ „Йога-азбука“" alt="ПЛАКАТ „Йога-азбука“" class="img-polaroid"/></a>
-      <div id="demoLightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
-         <div class='lightbox-dialog'>
-           <div class='lightbox-content'>
-             <img src="/images/poster-big.png">
-           </div>
+      <a data-toggle="lightbox" href="#posterLightbox"><img src="/images/poster.png" title="ПЛАКАТ „Йога-азбука“" alt="ПЛАКАТ „Йога-азбука“" class="img-polaroid"/></a>
+      <span>Нажмите на картинку для увеличения</span>
+      <div id="posterLightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+        <div class='lightbox-dialog'>
+          <div class='lightbox-header'>
+            <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+          </div>
+          <div class='lightbox-content'>
+            <img src="/images/poster-big.png">
+          </div>
         </div>
       </div>
     </div>
@@ -42,7 +46,25 @@
     </div>
     <div class="span6">
       <div style="width: 250px; margin: auto">
-        <img src="/images/cards.png" title="КАРТОЧКИ „Йога-азбука“" alt="КАРТОЧКИ „Йога-азбука“" class="img-polaroid"/>
+        <a data-toggle="lightbox" href="#cardsLightbox"><img src="/images/cards.png" title="КАРТОЧКИ „Йога-азбука“" alt="КАРТОЧКИ „Йога-азбука“" class="img-polaroid"/></a>
+        <span>Нажмите на картинку для увеличения</span>
+        <div id="cardsLightbox" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class='lightbox-header'>
+            <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+          </div>
+          <div class='lightbox-content'>
+            <div id="myCarousel" class="carousel slide">
+              <!-- Carousel items -->
+              <div class="carousel-inner">
+                <div class="active item"><img src="/images/cards-big.png"></div>
+                <div class="item"><img src="/images/cards-sample.png"></div>
+              </div>
+              <!-- Carousel nav -->
+              <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
