@@ -128,3 +128,6 @@ ul.nostyle li {
 #main {
   min-height: 250px;
 }
+.carousel-control {
+  line-height: 42px !important;
+}
