@@ -10,7 +10,8 @@
     "request": ">= 2.34.0",
     "jsonfile": "1.1.1",
     "gift": "0.3.0",
-    "fs-extra": "0.8.1"
+    "fs-extra": "0.8.1",
+    "punch-fix-utf8": "~2.0.2"
   },
   "scripts": {
     "test": "echo OK"

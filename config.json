@@ -10,9 +10,6 @@
 	"bundles": {
 		"/css/all.css": [
 			"/css/custom.css"
-		],
-		"/js/all.js": [
-			"/js/app.js"
 		]	
 	},
 
@@ -23,6 +20,9 @@
 		},
         "publishers": {
             "git_strategy": "./lib/punch-git-publisher.js" 
+        },
+        "generator_hooks": {
+            "fix_utf8": "punch-fix-utf8"
         }
     },
 
