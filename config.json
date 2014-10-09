@@ -26,6 +26,8 @@
         }
     },
 
+    "utf8_paths": ["/js/app.js"],
+
     "publish": {
         "strategy": "git_strategy",
         "options": {
