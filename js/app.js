@@ -17,11 +17,11 @@ $(function() {
     e.preventDefault();
     FB.ui({
       method: 'feed',
-      name: 'ÐÐ¾Ð³Ð° ÐÐ·Ð±ÑÐºÐ° Ð´Ð»Ñ Ð´ÐµÑÐµÐ¹',
+      name: 'Йога Азбука для детей',
       link: 'http://www.yoga-azbuka.ru/',
       picture: 'http://www.yoga-azbuka.ru/images/cards-sample.jpg',
-      caption: 'ÐÐ»Ð°ÐºÐ°Ñ, ÐºÐ°ÑÑÐ¾ÑÐºÐ¸ Ð¸ ÑÐ°ÑÑÐ°ÑÐºÐ¸ Ñ Ð°Ð·Ð±ÑÐºÐ¾Ð¹ Ð´Ð»Ñ Ð·Ð°Ð½ÑÑÐ¸Ð¹ Ð¹Ð¾Ð³Ð¾Ð¹ Ñ Ð´ÐµÑÑÐ¼Ð¸',
-      description: 'ÐÐ°ÑÐµÑÐ¸Ð°Ð»Ñ âÐÐ¾Ð³Ð°-Ð°Ð·Ð±ÑÐºÐ° Ð´Ð»Ñ Ð´ÐµÑÐµÐ¹â Ð¼Ð¾Ð³ÑÑ ÑÑÐ°ÑÑ Ð¾ÑÐ»Ð¸ÑÐ½ÑÐ¼ Ð¿Ð¾Ð´Ð°ÑÐ¾ÐºÐ¾Ð¼ Ð´Ð»Ñ Ð´ÐµÑÐµÐ¹ Ð¸ ÑÐ¾Ð´Ð¸ÑÐµÐ»ÐµÐ¹, ÑÐ²Ð»ÐµÑÐµÐ½Ð½ÑÑ Ð¹Ð¾Ð³Ð¾Ð¹.'
+      caption: 'Плакат, карточки и расраски с азбукой для занятий йогой с детьми',
+      description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
       if (response && response.post_id) {
         if ($('#download')[0]) return;
@@ -33,7 +33,7 @@ $(function() {
             href: "/images/starbig.jpg",
             download: "startbig.jpg",
             style: "color: #fff"
-          }).text('Ð¡ÐºÐ°ÑÐ°ÑÑ ÑÐ°ÑÐºÑÐ°ÑÐºÑ')));
+          }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
         ga('send', 'event', 'social', 'facebook', 'share');
       }
@@ -58,7 +58,7 @@ $(function() {
             href: "/images/starbig.jpg",
             download: "startbig.jpg",
             style: "color: #fff"
-          }).text('Ð¡ÐºÐ°ÑÐ°ÑÑ ÑÐ°ÑÐºÑÐ°ÑÐºÑ')));
+          }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
         ga('send', 'event', 'social', 'facebook', 'share');
       } else if (response) {
@@ -107,9 +107,9 @@ $(function() {
         crossDomain: true,
         success: function (data, status) {
             if (data == 'OK') {
-                $form.parent().html("Ð¡Ð¿Ð°ÑÐ¸Ð±Ð¾ Ð·Ð° ÐÐ°ÑÑ Ð·Ð°ÑÐ²ÐºÑ")
+                $form.parent().html("Спасибо за Вашу заявку")
             } else {
-                $form.parent().html("ÐÑÐ¸Ð±ÐºÐ°: " + data);
+                $form.parent().html("Ошибка: " + data);
             }
         },
         error: function (xOptions, textStatus) {
