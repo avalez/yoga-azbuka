@@ -2,34 +2,41 @@
 
   <div class="posts">
 
-	{{#recent_posts}}
-  	  <div class="container">
+  {{#recent_posts}}
+    <div class="container">
 
-	    <div class="row-fluid">
-	      <div class="span9">
-	        <article class="hentry"> 
-	          <h2 class="entry-title">{{{ title }}}</h2>
-			  <time class="updated" datetime="{{#iso_date}}{{ published_date }}{{/iso_date}}" pubdate>{{#long_date}}{{published_date}}{{/long_date}}</time>
+      <div class="row-fluid">
+        <div class="span12">
+          <article class="hentry"> 
+            <h2 class="entry-title">{{{ title }}}</h2>
+        <time class="updated" datetime="{{#iso_date}}{{ published_date }}{{/iso_date}}" pubdate>{{#long_date}}{{published_date}}{{/long_date}}</time>
 
-	          <div class="entry-content">
-	            {{{ content }}}
-	          </div>
-			  {{#is_teaser}}
-	            <div><a href="{{ permalink }}" class="more">More »</a></div>
-			  {{/is_teaser}}
-	        </article>
-	      </div>
-	    </div>
+            <div class="entry-content">
+              {{{ content }}}
+            </div>
+        {{#is_teaser}}
+              <div><a href="{{ permalink }}" class="more">More »</a></div>
+        {{/is_teaser}}
+          </article>
+        </div>
 
-	    <div class="span3 sidemenu">
-	      <!--ul>
-	        <li><a href="/blog/8097691237529526517.html">Update for hello-world-hk2-sample</a></li>
-	      </ul-->
-	    </div>
+        <div class="span3 sidemenu">
+          <!--ul>
+            <li><a href="/blog/8097691237529526517.html">Update for hello-world-hk2-sample</a></li>
+          </ul-->
+        </div>
 
-	  </div>
-	{{/recent_posts}}
+        <div class="row-fluid">
+          <div class="span12">
+            <a href="#" data-href="#top" class="back-to-top pull-right">Наверх</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  {{/recent_posts}}
 
   </div>
-	
+  
 {{> footer }}
