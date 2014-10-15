@@ -8,9 +8,6 @@
 	},
 
 	"bundles": {
-		"/css/all.css": [
-			"/css/custom.css"
-		]	
 	},
 
     "plugins": {
@@ -22,9 +19,11 @@
             "git_strategy": "./lib/punch-git-publisher.js" 
         },
         "generator_hooks": {
-            "fix_utf8": "punch-fix-utf8"
+            "fix_utf8": "./lib/punch-fix-utf8"
         }
     },
+
+    "utf8_paths": ["/js/app.js"],
 
     "publish": {
         "strategy": "git_strategy",
