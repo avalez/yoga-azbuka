@@ -1,9 +1,8 @@
 {{> header }}
 
-  <div class="posts">
+  <div class="posts container">
 
   {{#recent_posts}}
-    <div class="container">
 
       <div class="row-fluid">
         <div class="span12">
@@ -15,21 +14,19 @@
               {{{ content }}}
             </div>
         {{#is_teaser}}
-              <div><a href="/blog/{{ id }}.html" class="more">Читать далее »</a></div>
+              <div><br/><a href="/blog/{{ id }}.html" class="more">Читать далее »</a></div>
         {{/is_teaser}}
           </article>
         </div>
-
-        <div class="row-fluid">
-          <div class="span12">
-            <a href="#" data-href="#top" class="back-to-top pull-right">Наверх</a>
-          </div>
-        </div>
-
       </div>
 
-    </div>
   {{/recent_posts}}
+
+    <div class="row-fluid">
+      <div class="span12">
+        <a href="#" data-href="#top" class="back-to-top pull-right">Наверх</a>
+      </div>
+    </div>
 
   </div>
   
