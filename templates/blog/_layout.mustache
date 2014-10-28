@@ -1,0 +1,37 @@
+{{> header }}
+
+<div class="container">
+
+  <div class="row-fluid">
+    <div class="span9">
+      <article class="hentry"> 
+        <h2 class="entry-title">{{{ title }}}</h2>
+        <time class="updated" datetime="{{#iso_date}}{{ published_date }}{{/iso_date}}" pubdate>{{#long_date}}{{published_date}}{{/long_date}}</time>
+        <div class="entry-content">
+ 	      {{{contents}}}
+        </div>
+      </article>
+    </div>
+
+    <div class="span3 sidemenu">
+      <h4>Статьи</h4>
+      <ul>
+        <li><a href="/blog/1937465910721045001.html">Что такое йога с детьми?</a></li>
+        <li><a href="/blog/4984634214568107642.html">Красочные развивающие и обучающие плакаты дома</a></li>
+      </ul>
+      <h4><a href="/">Главная</a></h4>
+      
+    </div>
+
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <a href="#" data-href="#top" class="back-to-top pull-right">Наверх</a>
+    </div>
+  </div>
+
+</div>
+
+{{> footer }}
+

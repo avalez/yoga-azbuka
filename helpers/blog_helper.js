@@ -29,7 +29,7 @@ var fetch_content = function(callback) {
                     return;
                 }
 
-                var post_paras = post_contents.content.replace(/\n/g, " ").match(/(<p[^>]*>.*?<\/p>)/g);
+                var post_paras = post_contents.content.split('<br />');
                 if (!post_paras) {
                     post_paras = [post_contents.content];
                 }

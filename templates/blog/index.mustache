@@ -8,14 +8,14 @@
       <div class="row-fluid">
         <div class="span12">
           <article class="hentry"> 
-            <h2 class="entry-title">{{{ title }}}</h2>
+            <h2 class="entry-title"><a href="/blog/{{ id }}.html">{{{ title }}}</a></h2>
         <time class="updated" datetime="{{#iso_date}}{{ published_date }}{{/iso_date}}" pubdate>{{#long_date}}{{published_date}}{{/long_date}}</time>
 
             <div class="entry-content">
               {{{ content }}}
             </div>
         {{#is_teaser}}
-              <div><a href="{{ permalink }}" class="more">More »</a></div>
+              <div><a href="/blog/{{ id }}.html" class="more">Читать далее »</a></div>
         {{/is_teaser}}
           </article>
         </div>

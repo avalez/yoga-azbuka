@@ -11,7 +11,7 @@
 	},
 
     "plugins": {
-        "xcontent_handler": "./lib/rest_content_handler",
+        "content_handler": "./lib/rest_content_handler",
 		"helpers": {
 			"blog_helper": "./helpers/blog_helper.js"
 		},
