@@ -30,8 +30,8 @@ $(function() {
           $("<button/>").attr({
             class: "btn btn-success"
           }).append($("<a/>").attr({
-            href: "/images/starbig.jpg",
-            download: "startbig.jpg",
+            href: "/images/dogbig.jpg",
+            download: "dogbig.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
