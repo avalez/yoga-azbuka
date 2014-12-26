@@ -78,10 +78,10 @@ $(function() {
   ko.applyBindings(new ViewModel(1, 0));
   
   var ratings = $('select.barrating');
-  var ratingSelected = function(value, text) {
+  var ratingChanged = function(value, text) {
       ratings.change();
   }
-  ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: ratingSelected});
+  ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: ratingChanged});
 
   // https://code.google.com/p/yogamamadvd/source/browse/trunk/catalog/view/theme/yogamamadvd/templates/account/register.html#219
   $('.typeahead').typeahead({
