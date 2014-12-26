@@ -74,8 +74,8 @@ $(function() {
       this.addressCity = ko.observable();
 
       var productCost = function(value) {
-          // discount if 10
-          return value ? value + " * 399 : " + value * 399 + " руб" : "";
+          // TODO: discount if 10
+          return value * 399;
       };
 
       this.cardsCost = ko.pureComputed(function() {
@@ -120,9 +120,12 @@ $(function() {
           if (cards > 0 && delivery.text == 'Почта') {
               cost += 100;
           }
-          return cost + ' руб';
+          return cost;
       }, this);
 
+      this.totalCost = ko.pureComputed(function() {
+          return this.cardsCost() + this.posterCost() + this.deliveryCost();
+      }, this);
   };
 
   var model = new ViewModel(1, 0);
