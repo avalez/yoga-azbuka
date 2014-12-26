@@ -50,14 +50,19 @@ $(function() {
   var ViewModel = function(cards, poster, delivery) {
       this.cards = ko.observable(cards);
       this.poster = ko.observable(poster);
+      this.addressCity = ko.observable();
       this.delivery = ko.observable(delivery);
       this.deliveryOptions = [{
-          disable: true,
+          disable: ko.pureComputed(function() {
+              return !this.addressIsMoscow();
+          }, this),
           text: 'Самовывоз',
           comment: 'м.Щелковская, м. Павелецкая или м.Водный стадион',
           cost: 0
       }, {
-          disable: true,
+          disable: ko.pureComputed(function() {
+              return !this.addressIsMoscow();
+          }, this),
           text: 'Курьер',
           comment: 'Доставка до любой станции метро 300 руб',
           cost: 350
@@ -74,12 +79,6 @@ $(function() {
           cost: 459,
           costWorld: 1250
       }];
-      for (var i in this.deliveryOptions) {
-          var option = this.deliveryOptions[i];
-          option.disable = ko.observable(option.disable);
-      }
-      this.addressCity = ko.observable();
-      this.addressCountryCode = ko.observable();
 
       var productCost = function(value) {
           // TODO: discount if 10
@@ -94,27 +93,27 @@ $(function() {
           return productCost(this.poster());
       }, this);
 
-      this.addressChanged = function(value) {
-          var selected = value.split(",");
-          this.addressCity(selected[0]);
-          this.addressCountryCode(selected.length == 4 ? selected[3] : selected[2]);
-          var disable = selected[0] != 'Москва';
-          this.disableDeliveryOption(this.deliveryOptions[0], disable);
-          this.disableDeliveryOption(this.deliveryOptions[1], disable);
-      };
+      this.addressIsMoscow =  ko.pureComputed(function() {
+          var address = this.addressCity();
+          return address && address.split(",")[0] == 'Москва';
+      }, this);
 
-      this.disableDeliveryOption = function(option, disable) {
-          option.disable(disable);
-          var delivery = this.delivery() || {};
-          if (delivery.text == option.text) {
-              this.delivery('');
-          }
-      };
+      this.addressIsRussia =  ko.pureComputed(function() {
+          var address = this.addressCity();
+          return address && address.split(",")[3].trim() == 'RU';
+      }, this);
 
       var self = this;
       this.deliveryChanged = function(value) {
           self.delivery(value);
       };
+
+      this.addressCity.subscribe(function() {
+          var delivery = self.delivery();
+          if (delivery && delivery.disable) {
+              self.delivery('');
+          }      
+      });
 
       this.deliveryCost = ko.pureComputed(function() {
           var delivery = this.delivery();
@@ -122,18 +121,17 @@ $(function() {
               return '';
           }
           var cost = delivery.cost;
-          var addressCountryCode = this.addressCountryCode();
           if ((delivery.text == 'Почта' || delivery.text == 'EMS') &&
-                  addressCountryCode != 'RU') {
+                  !this.addressIsRussia()) {
               cost = delivery.costWorld;
           }
           var cards = this.cards() || 0;
+          if (cards > 0 && delivery.text == 'Почта') {
+              cost += 100;
+          }
           var poster = this.poster() || 0;
           if (poster > 0 && delivery.text == 'Почта') {
               cost += 100 + 200; // FIXME: weight
-          }
-          if (cards > 0 && delivery.text == 'Почта') {
-              cost += 100;
           }
           return cost;
       }, this);
@@ -148,8 +146,7 @@ $(function() {
       }, this);
   };
 
-  var model = new ViewModel(1, 0);
-  ko.applyBindings(model);
+  ko.applyBindings(new ViewModel(1, 0));
   
   var ratings = $('select.barrating');
   ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: function(value, text) {
@@ -166,12 +163,6 @@ $(function() {
         }));
       });
     },
-    minLength: 3,
-    updater: function(item) {
-      if (item) {
-        model.addressChanged(item);
-      }
-      return item;
-    }
+    minLength: 3
   });
 });
