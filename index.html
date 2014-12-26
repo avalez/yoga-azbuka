@@ -182,8 +182,8 @@
 	  <div class="control-group">
 		<label class="control-label" for="delivery">Способ доставки:</label>
 		<div class="controls span5">
-		  <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: ['Самовывоз', 'Курьер', 'Посылка']">
-		    <button name="delivery" type="button" class="btn btn-info" data-bind="click: $parent.deliveryChanged, text: $data"></button>
+		  <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
+		    <button name="delivery" type="button" class="btn btn-info" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
 		  </div>
 		</div>
 		<div class="controls">

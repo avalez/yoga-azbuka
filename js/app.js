@@ -46,15 +46,30 @@ $(function() {
       });
     }
   });
-
+ 
   var ViewModel = function(cards, poster, delivery) {
       this.cards = ko.observable(cards);
       this.poster = ko.observable(poster);
       this.delivery = ko.observable(delivery);
+      this.deliveryOptions = [{
+          disable: true,
+          text: 'Самовывоз'
+      }, {
+          disable: true,
+          text: 'Курьер'
+      }, {
+          disable: false,
+          text: 'Посылка'
+      }];
+      for (var i in this.deliveryOptions) {
+          var option = this.deliveryOptions[i];
+          option.disable = ko.observable(option.disable);
+      }
+      this.addressCity = ko.observable();
 
       var productCost = function(value) {
           // discount if 10
-          return value ? value + " * 399 руб: " + value * 399 + " руб" : "0 руб";
+          return value ? value + " * 399 : " + value * 399 + " руб" : "";
       };
 
       this.cardsCost = ko.pureComputed(function() {
@@ -67,15 +82,33 @@ $(function() {
 
       var self = this;
       this.deliveryChanged = function(value) {
-          self.delivery(value);
-      }
+          self.delivery(value.text);
+      };
 
       this.deliveryCost = ko.pureComputed(function() {
-          return this.delivery();
+          var delivery = this.delivery();
+          return delivery ? delivery : '';
       }, this);
+
+      this.disableDeliveryOption = function(option, disable) {
+          option.disable(disable);
+          if (this.delivery() == option.text) {
+              this.delivery('');
+          }
+      }
+
+      this.addressChanged = function(value) {
+          var selected = value.split(",");
+          console.log(selected);
+          this.addressCity(selected[0]);
+          var disable = selected[0] != 'Москва';
+          this.disableDeliveryOption(this.deliveryOptions[0], disable);
+          this.disableDeliveryOption(this.deliveryOptions[1], disable);
+      };
   };
 
-  ko.applyBindings(new ViewModel(1, 0));
+  var model = new ViewModel(1, 0);
+  ko.applyBindings(model);
   
   var ratings = $('select.barrating');
   ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: function(value, text) {
@@ -95,8 +128,7 @@ $(function() {
     minLength: 3,
     updater: function(item) {
       if (item) {
-        var selected = item.split(",");
-        // TODO: strip countryCode
+        model.addressChanged(item);
       }
       return item;
     }
