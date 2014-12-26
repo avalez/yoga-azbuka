@@ -53,13 +53,19 @@ $(function() {
       this.delivery = ko.observable(delivery);
       this.deliveryOptions = [{
           disable: true,
-          text: 'Самовывоз'
+          text: 'Самовывоз',
+          comment: 'м.Щелковская, м. Павелецкая или м.Водный стадион',
+          cost: 0
       }, {
           disable: true,
-          text: 'Курьер'
+          text: 'Курьер',
+          comment: 'Доставка до любой станции метро',
+          cost: 300
       }, {
           disable: false,
-          text: 'Посылка'
+          text: 'Почта',
+          comment: 'Почтой России, срок доставки 7-10 дней',
+          cost: 0
       }];
       for (var i in this.deliveryOptions) {
           var option = this.deliveryOptions[i];
@@ -80,31 +86,43 @@ $(function() {
           return productCost(this.poster());
       }, this);
 
-      var self = this;
-      this.deliveryChanged = function(value) {
-          self.delivery(value.text);
+      this.addressChanged = function(value) {
+          var selected = value.split(",");
+          this.addressCity(selected[0]);
+          var disable = selected[0] != 'Москва';
+          this.disableDeliveryOption(this.deliveryOptions[0], disable);
+          this.disableDeliveryOption(this.deliveryOptions[1], disable);
       };
-
-      this.deliveryCost = ko.pureComputed(function() {
-          var delivery = this.delivery();
-          return delivery ? delivery : '';
-      }, this);
 
       this.disableDeliveryOption = function(option, disable) {
           option.disable(disable);
           if (this.delivery() == option.text) {
               this.delivery('');
           }
-      }
-
-      this.addressChanged = function(value) {
-          var selected = value.split(",");
-          console.log(selected);
-          this.addressCity(selected[0]);
-          var disable = selected[0] != 'Москва';
-          this.disableDeliveryOption(this.deliveryOptions[0], disable);
-          this.disableDeliveryOption(this.deliveryOptions[1], disable);
       };
+
+      var self = this;
+      this.deliveryChanged = function(value) {
+          self.delivery(value);
+      };
+
+      this.deliveryCost = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          if (!delivery) {
+              return '';
+          }
+          var cost = delivery.cost;
+          var cards = this.cards() || 0;
+          var poster = this.poster() || 0;
+          if (poster > 0 && delivery.text == 'Почта') {
+              cost += 100 + 200; // FIXME: weight
+          }
+          if (cards > 0 && delivery.text == 'Почта') {
+              cost += 100;
+          }
+          return cost + ' руб';
+      }, this);
+
   };
 
   var model = new ViewModel(1, 0);
