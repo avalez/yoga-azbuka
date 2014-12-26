@@ -47,9 +47,10 @@ $(function() {
     }
   });
 
-  var ViewModel = function(cards, posters) {
+  var ViewModel = function(cards, posters, delivery) {
       this.cards = ko.observable(cards);
       this.posters = ko.observable(posters);
+      this.delivery = ko.observable(delivery);
 
       var productCost = function(value) {
           // discount if 10
@@ -62,6 +63,15 @@ $(function() {
 
       this.postersCost = ko.pureComputed(function() {
           return productCost(this.posters());
+      }, this);
+
+      var self = this;
+      this.deliveryChanged = function(value) {
+          self.delivery(value);
+      }
+
+      this.deliveryCost = ko.pureComputed(function() {
+          return this.delivery();
       }, this);
   };
 

@@ -143,15 +143,24 @@
               <tr><td><label for="payer_email">E-mail:</label></td></tr>
               <tr><td><input type="email" name="payer_email" required></td></tr>
               <tr><td><label for="cards">Карточки:</label></td></tr>
-              <tr><td><select class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
-	            <span data-bind="text: cardsCost"></span>
-	            </td></tr>
+              <tr><td>
+	            <select class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
+                <span data-bind="text: cardsCost"></span>
+              </td></tr>
               <tr><td><label for="cards">Плакат:</label></td></tr>
-              <tr><td><select class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: posters"></select>
-	            <span data-bind="text: postersCost"></span>
-	            </td></tr>
+              <tr><td>
+	            <select class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: posters"></select>
+                <span data-bind="text: postersCost"></span>
+              </td></tr>
               <tr><td><label for="address_city">Город, Страна:</label></td></tr>
               <tr><td><input type="text" name="address_city" required class="typeahead"></td></tr>
+              <tr><td><label for="address_city">Способ доставки:</label></td></tr>
+              <tr><td>
+	            <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: ['Самовывоз', 'Курьер', 'Посылка']">
+                  <button type="button" class="btn btn-info" data-bind="click: $parent.deliveryChanged, text: $data"></button>
+                </div>
+                Cost: <span data-bind="text: deliveryCost"></span>
+              </td></tr>
             </table>
             <input type="submit" class="btn btn-primary" name="submit" alt="Отправить заявку" value="Отправить">
             <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
