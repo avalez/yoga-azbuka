@@ -47,6 +47,32 @@ $(function() {
     }
   });
 
+  var ViewModel = function(cards, posters) {
+      this.cards = ko.observable(cards);
+      this.posters = ko.observable(posters);
+
+      var productCost = function(value) {
+          // discount if 10
+          return value ? value + " * 399 руб: " + value * 399 + " руб" : "0 руб";
+      };
+
+      this.cardsCost = ko.pureComputed(function() {
+          return productCost(this.cards());
+      }, this);
+
+      this.postersCost = ko.pureComputed(function() {
+          return productCost(this.posters());
+      }, this);
+  };
+
+  ko.applyBindings(new ViewModel(1, 0));
+  
+  var ratings = $('select.barrating');
+  var ratingSelected = function(value, text) {
+      ratings.change();
+  }
+  ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: ratingSelected});
+
   // https://code.google.com/p/yogamamadvd/source/browse/trunk/catalog/view/theme/yogamamadvd/templates/account/register.html#219
   $('.typeahead').typeahead({
     source: function(query, process) {
