@@ -47,9 +47,9 @@ $(function() {
     }
   });
 
-  var ViewModel = function(cards, posters, delivery) {
+  var ViewModel = function(cards, poster, delivery) {
       this.cards = ko.observable(cards);
-      this.posters = ko.observable(posters);
+      this.poster = ko.observable(poster);
       this.delivery = ko.observable(delivery);
 
       var productCost = function(value) {
@@ -61,8 +61,8 @@ $(function() {
           return productCost(this.cards());
       }, this);
 
-      this.postersCost = ko.pureComputed(function() {
-          return productCost(this.posters());
+      this.posterCost = ko.pureComputed(function() {
+          return productCost(this.poster());
       }, this);
 
       var self = this;
