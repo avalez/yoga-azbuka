@@ -59,19 +59,27 @@ $(function() {
       }, {
           disable: true,
           text: 'Курьер',
-          comment: 'Доставка до любой станции метро',
-          cost: 300
+          comment: 'Доставка до любой станции метро 300 руб',
+          cost: 350
       }, {
           disable: false,
           text: 'Почта',
-          comment: 'Почтой России, срок доставки 7-10 дней',
-          cost: 0
+          comment: 'Срок доставки по России 7-10 дней, в другие страны 10-14 дней',
+          cost: 0,
+          costWorld: 100
+      }, {
+          disable: false,
+          text: 'EMS',
+          comment: 'Срок доставки по России 2-4 дня, в другие страны 4-14 дней',
+          cost: 459,
+          costWorld: 1250
       }];
       for (var i in this.deliveryOptions) {
           var option = this.deliveryOptions[i];
           option.disable = ko.observable(option.disable);
       }
       this.addressCity = ko.observable();
+      this.addressCountryCode = ko.observable();
 
       var productCost = function(value) {
           // TODO: discount if 10
@@ -89,6 +97,7 @@ $(function() {
       this.addressChanged = function(value) {
           var selected = value.split(",");
           this.addressCity(selected[0]);
+          this.addressCountryCode(selected.length == 4 ? selected[3] : selected[2]);
           var disable = selected[0] != 'Москва';
           this.disableDeliveryOption(this.deliveryOptions[0], disable);
           this.disableDeliveryOption(this.deliveryOptions[1], disable);
@@ -96,7 +105,8 @@ $(function() {
 
       this.disableDeliveryOption = function(option, disable) {
           option.disable(disable);
-          if (this.delivery() == option.text) {
+          var delivery = this.delivery() || {};
+          if (delivery.text == option.text) {
               this.delivery('');
           }
       };
@@ -112,6 +122,11 @@ $(function() {
               return '';
           }
           var cost = delivery.cost;
+          var addressCountryCode = this.addressCountryCode();
+          if ((delivery.text == 'Почта' || delivery.text == 'EMS') &&
+                  addressCountryCode != 'RU') {
+              cost = delivery.costWorld;
+          }
           var cards = this.cards() || 0;
           var poster = this.poster() || 0;
           if (poster > 0 && delivery.text == 'Почта') {
@@ -122,6 +137,11 @@ $(function() {
           }
           return cost;
       }, this);
+
+      this.deliveryComment = ko.pureComputed(function() {
+            var delivery = this.delivery();
+            return delivery ? delivery.comment : '';
+        }, this);
 
       this.totalCost = ko.pureComputed(function() {
           return this.cardsCost() + this.posterCost() + this.deliveryCost();
