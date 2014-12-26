@@ -137,30 +137,11 @@
             <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
             <input type="hidden" name="secret" value="preorder"/>
             <input type="hidden" name="skip-validation" value="1"/>
-            <table class="barrating">
+            <table>
               <tr><td><label for="full_name">Имя Фамилия:</label></td></tr>
               <tr><td><input type="text" name="full_name" required></td></tr>
               <tr><td><label for="payer_email">E-mail:</label></td></tr>
               <tr><td><input type="email" name="payer_email" required></td></tr>
-              <tr><td><label for="cards">Карточки:</label></td></tr>
-              <tr><td>
-	            <select class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
-                <span data-bind="text: cardsCost"></span>
-              </td></tr>
-              <tr><td><label for="cards">Плакат:</label></td></tr>
-              <tr><td>
-	            <select class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: posters"></select>
-                <span data-bind="text: postersCost"></span>
-              </td></tr>
-              <tr><td><label for="address_city">Город, Страна:</label></td></tr>
-              <tr><td><input type="text" name="address_city" required class="typeahead"></td></tr>
-              <tr><td><label for="address_city">Способ доставки:</label></td></tr>
-              <tr><td>
-	            <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: ['Самовывоз', 'Курьер', 'Посылка']">
-                  <button type="button" class="btn btn-info" data-bind="click: $parent.deliveryChanged, text: $data"></button>
-                </div>
-                Cost: <span data-bind="text: deliveryCost"></span>
-              </td></tr>
             </table>
             <input type="submit" class="btn btn-primary" name="submit" alt="Отправить заявку" value="Отправить">
             <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
@@ -168,6 +149,48 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row-fluid">
+	<form class="form-horizontal barrating">
+	  <div class="control-group">
+		<label class="control-label" for="cards">Карточки:</label>
+		<div class="controls span5">
+		  <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
+		</div>
+		<div class="controls">
+	      <span data-bind="text: cardsCost"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+		<label class="control-label" for="posters">Плакат:</label>
+		<div class="controls span5">
+		  <select name="posters" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: posters"></select>
+		</div>
+		<div class="controls">
+	      <span data-bind="text: postersCost"/>
+	    </div>
+	  </div>
+	  <div class="control-group">
+		<label class="control-label" for="address_city">Город, Страна:</label>
+		<div class="controls span5">
+		  <input type="text" name="address_city" required class="typeahead">
+		</div>
+	  </div>
+	  <div class="control-group">
+		<label class="control-label" for="delivery">Способ доставки:</label>
+		<div class="controls span5">
+		  <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: ['Самовывоз', 'Курьер', 'Посылка']">
+		    <button name="delivery" type="button" class="btn btn-info" data-bind="click: $parent.deliveryChanged, text: $data"></button>
+		  </div>
+		</div>
+		<div class="controls">
+	      <span data-bind="text: deliveryCost"></span>
+	    </div>
+	  </div>
+	</form>
   </div>
 </div>
 
