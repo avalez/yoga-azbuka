@@ -92,113 +92,119 @@
 <div class="hero-unit" id="order">
   <div class="container">
     <div class="row-fluid">
-      <div class="span8">
-        <div id="ri-grid" class="ri-grid ri-grid-size-2 ri-shadow">
-          <img class="ri-loading-image" src="/images/loading.gif"/>
-          <ul class="img-polaroid">
-            <li><a href="#"><img src="/images/small/butterflypng.png" alt="Бабочка"/></a></li>
-            <li><a href="#"><img src="/images/small/treepng.png" alt="Дерево"/></a></li>
-            <li><a href="#"><img src="/images/small/starpng.png" alt="Звезда"/></a></li>
-            <li><a href="#"><img src="/images/small/peacockspng.png" alt="Павлин"/></a></li>
-            <li><a href="#"><img src="/images/small/dogpng.png" alt="Собака"/></a></li>
-            <li><a href="#"><img src="/images/small/triglepng.png" alt="Треугальник"/></a></li>
+      <div class="carousel">
+        <!-- Carousel items -->
+        <div id="wizard" class="carousel-inner slide" data-interval="false">
+          <div class="item active">
 
-            <li><a href="#"><img src="/images/small/butterflypng.png" alt="Бабочка"/></a></li>
-            <li><a href="#"><img src="/images/small/treepng.png" alt="Дерево"/></a></li>
-            <li><a href="#"><img src="/images/small/starpng.png" alt="Звезда"/></a></li>
-            <li><a href="#"><img src="/images/small/peacockspng.png" alt="Павлин"/></a></li>
-            <li><a href="#"><img src="/images/small/dogpng.png" alt="Собака"/></a></li>
-            <li><a href="#"><img src="/images/small/triglepng.png" alt="Треугальник"/></a></li>
-          </ul>
+            <div class="span8">
+              <div id="ri-grid" class="ri-grid ri-grid-size-2 ri-shadow">
+                <img class="ri-loading-image" src="/images/loading.gif"/>
+                <ul class="img-polaroid">
+                  <li><a href="#"><img src="/images/small/butterflypng.png" alt="Бабочка"/></a></li>
+                  <li><a href="#"><img src="/images/small/treepng.png" alt="Дерево"/></a></li>
+                  <li><a href="#"><img src="/images/small/starpng.png" alt="Звезда"/></a></li>
+                  <li><a href="#"><img src="/images/small/peacockspng.png" alt="Павлин"/></a></li>
+                  <li><a href="#"><img src="/images/small/dogpng.png" alt="Собака"/></a></li>
+                  <li><a href="#"><img src="/images/small/triglepng.png" alt="Треугальник"/></a></li>
+
+                  <li><a href="#"><img src="/images/small/butterflypng.png" alt="Бабочка"/></a></li>
+                  <li><a href="#"><img src="/images/small/treepng.png" alt="Дерево"/></a></li>
+                  <li><a href="#"><img src="/images/small/starpng.png" alt="Звезда"/></a></li>
+                  <li><a href="#"><img src="/images/small/peacockspng.png" alt="Павлин"/></a></li>
+                  <li><a href="#"><img src="/images/small/dogpng.png" alt="Собака"/></a></li>
+                  <li><a href="#"><img src="/images/small/triglepng.png" alt="Треугальник"/></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="span4 info">
+              <p><b>Уже в продаже!</b> Заполните форму заявки, и мы договоримся о доставке и оплате по e-mail.</p>
+              <div id="demoLicense">
+                <form action="http://yoga-azbuka.appspot.com/digisell" method="post">
+                  <input type="hidden" name="item_number" value="1"/>
+                  <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
+                  <input type="hidden" name="secret" value="preorder"/>
+                  <input type="hidden" name="skip-validation" value="1"/>
+                  <input type="hidden" name="first_name">
+                  <input type="hidden" name="last_name">
+                  <table>
+                    <tr><td><label for="full_name">Имя Фамилия:</label></td></tr>
+                    <tr><td><input type="text" name="full_name" required></td></tr>
+                    <tr><td><label for="payer_email">E-mail:</label></td></tr>
+                    <tr><td><input type="email" name="payer_email" required></td></tr>
+                  </table>
+                  <input type="submit" class="btn btn-success" name="submit" alt="Отправить заявку" value="Отправить">
+                  <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
+                </form>
+                <a class="btn btn-info" href="#wizard" data-slide="next">Посчитать стоимость</a>
+              </div>
+            </div>
+
+          </div> <!-- / item -->
+          <div class="item">
+
+            <h3>Расчет стоимости заказа</h3>
+            <form class="form-horizontal barrating">
+              <div class="control-group">
+                <label class="control-label" for="cards">Карточки:</label>
+                <div class="span5">
+                  <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
+                </div>
+               <div>
+                 <span data-bind="if: cardsCost"><!-- ko text: cardsCost --><!--/ko--> руб</span>
+                 <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
+               </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="poster">Плакат:</label>
+                <div class="span5">
+                  <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
+                </div>
+                <div>
+                  <span data-bind="if: posterCost"><!-- ko text: posterCost --><!--/ko--> руб</span>
+                  <span data-bind="if: poster() >= 10">&nbsp;Скидка 10%</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="address_city">Город, Страна:</label>
+                <div class="span5">
+                  <input type="text" name="address_city" data-bind="value: addressCity" required class="typeahead" autocomplete="off">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="delivery">Способ доставки:</label>
+                <div class="span5">
+                  <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
+                    <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
+                  </div>
+                  <p data-bind="text: deliveryComment"></p>
+                </div>
+                <div>
+                  <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="delivery">Примерная стоимость:</label>
+                <div class="span5">
+                  <span data-bind="if: totalCost"><!-- ko text: totalCost --><!--/ko--> руб</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label"></label>
+                <div class="span6">
+                  Конечная стоимость может быть выше и будет указана при оформлении заказа
+                </div>
+              </div>
+              <div class="form-actions">
+                <a class="btn btn-info" href="#wizard" data-slide="prev">Вернуться</a>
+              </div>
+            </form>
+
+          </div> <!-- / item -->
         </div>
-      </div>
-      <div class="span4 info">
-        <p><b>Уже в продаже!</b> Заполните форму заявки, и мы договоримся о доставке и оплате по e-mail.</p>
-        <div id="demoLicense">
-          <form action="http://yoga-azbuka.appspot.com/digisell" method="post">
-            <input type="hidden" name="item_number" value="1"/>
-            <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
-            <input type="hidden" name="secret" value="preorder"/>
-            <input type="hidden" name="skip-validation" value="1"/>
-            <input type="hidden" name="first_name">
-            <input type="hidden" name="last_name">
-            <table>
-              <tr><td><label for="full_name">Имя Фамилия:</label></td></tr>
-              <tr><td><input type="text" name="full_name" required></td></tr>
-              <tr><td><label for="payer_email">E-mail:</label></td></tr>
-              <tr><td><input type="email" name="payer_email" required></td></tr>
-            </table>
-            <input type="submit" class="btn btn-success" name="submit" alt="Отправить заявку" value="Отправить">
-            <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
-            <!-- &nbsp;<a href="#costDialog" class="btn-link" alt="Узнать стоимость" data-toggle="modal">Узнать стоимость</a> -->
-          </form>
-        </div>
+        <!-- / Carousel items -->
       </div>
     </div>
-  </div>
-</div>
-
-<div id="costDialog" class="modal large hide" tabindex="-1" role="dialog" aria-labelledby="costDialogLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3 id="costDialogLabel">Примерная стоимость заказа</h3>
-  </div>
-  <div class="modal-body">
-    <form class="form-horizontal barrating">
-      <div class="control-group">
-        <label class="control-label" for="cards">Карточки:</label>
-        <div class="span4">
-          <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
-        </div>
-        <div>
-          <span data-bind="if: cardsCost"><!-- ko text: cardsCost --><!--/ko--> руб</span>
-          <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="poster">Плакат:</label>
-        <div class="span4">
-          <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
-        </div>
-        <div>
-          <span data-bind="if: posterCost"><!-- ko text: posterCost --><!--/ko--> руб</span>
-          <span data-bind="if: poster() >= 10">&nbsp;Скидка 10%</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="address_city">Город, Страна:</label>
-        <div class="span4">
-          <input type="text" name="address_city" data-bind="value: addressCity" required class="typeahead" autocomplete="off">
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="delivery">Способ доставки:</label>
-        <div class="span4">
-          <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
-            <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
-          </div>
-          <p data-bind="text: deliveryComment"></p>
-        </div>
-        <div>
-          <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="delivery">Примерная стоимость:</label>
-        <div class="span4">
-          <span data-bind="if: totalCost"><!-- ko text: totalCost --><!--/ko--> руб</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label"></label>
-        <div class="span6">
-          Конечная стоимость может быть выше и будет указана при оформлении заказа
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Закрыть</button>
   </div>
 </div>
 
@@ -206,9 +212,9 @@
 
   <div class="row-fluid">
     <h4>Отзывы</h4>
-    <div class="carousel slide">
+    <div class="carousel">
       <!-- Carousel items -->
-      <div id="testimonials" class="carousel-inner"  data-interval="30000">
+      <div id="testimonials" class="carousel-inner slide"  data-interval="30000">
         <div class="item active alert testimonial">
           <p><i>„Как счастливый пользователь оставлю отзыв — чудесная вещь!! сегодня дети в школе на анатомии по ним занимались в виде практического навыка теоретических знаний о необходимости разминки и повышения гибкости :) на ура занимались!! так старательно читали свои позы и выполняли их вместе. прекрасная идея и совершенно идеальное выполнение!“</i></p>
           <p>Маргарита Утевска</p>
