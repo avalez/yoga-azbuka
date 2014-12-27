@@ -167,6 +167,7 @@
         </div>
         <div>
           <span data-bind="if: cardsCost"><!-- ko text: cardsCost --><!--/ko--> руб</span>
+          <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
         </div>
       </div>
       <div class="control-group">
@@ -176,6 +177,7 @@
         </div>
         <div>
           <span data-bind="if: posterCost"><!-- ko text: posterCost --><!--/ko--> руб</span>
+          <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
         </div>
       </div>
       <div class="control-group">

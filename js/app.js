@@ -75,8 +75,8 @@ $(function() {
       }];
 
       var productCost = function(value) {
-          // TODO: discount if 10
-          return value * 399;
+          var discount = value >= 10 ? 0.9 : 1;
+          return Math.round(value * 399 * discount);
       };
 
       this.cardsCost = ko.pureComputed(function() {
