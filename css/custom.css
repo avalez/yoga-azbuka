@@ -150,3 +150,7 @@ body .btn.active {
   color: #fff;
   background-color: #5faee3;
 }
+
+body .form-actions {
+  background-color: transparent;
+}

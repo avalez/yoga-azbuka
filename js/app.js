@@ -68,12 +68,18 @@ $(function() {
     });
   });
 
-  $('#ri-grid').gridrotator({
+  var gridrotator = $('#ri-grid').gridrotator({
     w1024: {rows: 2, columns: 3},
     w768 : {rows: 2, columns: 3},
     w480 : {rows: 2, columns: 3},
     w320 : {rows: 3, columns: 4},
     w240 : {rows: 3, columns: 3}
+  });
+
+  $('#wizard').on('slid', function(event) {
+    if ($(this.children[0]).hasClass('active')) {
+      gridrotator.$el.resize();
+    }
   });
 
   var loading = function(isLoading) {
