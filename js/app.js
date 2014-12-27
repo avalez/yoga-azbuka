@@ -117,18 +117,21 @@ $(function() {
           var cards = this.cards() || 0;
           var poster = this.poster() || 0;
           var cost = 0;
+          var weightFactor = Math.max(0, Math.floor((poster + cards - 1) / 2));
           if (delivery.text == 'Почта') {
               if (poster > 0) {
-                  cost = 100 + (this.addressIsRussia() ? 200 : 1000); // FIXME: weight
+                  cost = 100 + (this.addressIsRussia() ? 200 : 1000);
               } else if (cards > 0) {
-                  cost =  this.addressIsRussia() ? 100 : 300; // FIXME: weight
+                  cost =  this.addressIsRussia() ? 100 : 300;
               }
+              cost += weightFactor * (this.addressIsRussia() ? 50 : 100);
           } else if (delivery.text == 'EMS') {
               if (poster > 0) {
-                  cost = 100 + (this.addressIsRussia() ? 650 : 1250); // FIXME: weight
+                  cost = 100 + (this.addressIsRussia() ? 650 : 1250);
               } else if (cards > 0) {
-                  cost = this.addressIsRussia() ? 650 : 1250; // FIXME: weight
+                  cost = this.addressIsRussia() ? 650 : 1250;
               }
+              cost += weightFactor * (this.addressIsRussia() ? 50 : 200);
           } else if (delivery.text == 'Курьер') {
               cost = 350;
           }
