@@ -136,3 +136,7 @@ body .modal {
 body .modal-backdrop {
   background-color: #fff;
 }
+body .btn.active {
+  color: #fff;
+  background-color: #5faee3;
+}

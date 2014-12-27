@@ -7,18 +7,17 @@
     width: 25px;
     height: 25px;
     float: left;
-    background-color: #e3e3e3;
+    background-color: #bfc6cb;
     margin: 2px;
     text-decoration: none;
     font-size: 14px;
     font-weight: 400;
     line-height: 2.2;
     text-align: center;
-    color: #b6b6b6;
+    color: #fff;
 }
 
 .barrating .br-widget a.br-active,
 .barrating .br-widget a.br-selected {
     background-color: #5faee3;
-    color: white;
 }
