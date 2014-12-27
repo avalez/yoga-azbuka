@@ -147,7 +147,7 @@
             <form class="form-horizontal barrating">
               <div class="control-group">
                 <label class="control-label" for="cards">Карточки:</label>
-                <div class="span5">
+                <div class="span6">
                   <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
                 </div>
                <div class="span2">
@@ -157,7 +157,7 @@
               </div>
               <div class="control-group">
                 <label class="control-label" for="poster">Плакат:</label>
-                <div class="span5">
+                <div class="span6">
                   <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
                 </div>
                 <div class="span2">
@@ -167,13 +167,13 @@
               </div>
               <div class="control-group">
                 <label class="control-label" for="address_city">Город, Страна:</label>
-                <div class="span5">
+                <div class="span6">
                   <input type="text" name="address_city" data-bind="value: addressCity" required class="typeahead" autocomplete="off">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="delivery">Способ доставки:</label>
-                <div class="span5">
+                <div class="span6">
                   <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
                     <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
                   </div>
@@ -185,13 +185,13 @@
               </div>
               <div class="control-group">
                 <label class="control-label" for="delivery">Примерная стоимость:</label>
-                <div class="span5">
+                <div class="span6">
                   <span data-bind="if: totalCost"><!-- ko text: totalCost --><!--/ko--> руб</span>
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label"></label>
-                <div class="span7">
+                <div class="span8">
                   Конечная стоимость может быть выше и будет указана при оформлении заказа
                 </div>
               </div>
