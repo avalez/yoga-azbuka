@@ -130,10 +130,75 @@
             </table>
             <input type="submit" class="btn btn-success" name="submit" alt="Отправить заявку" value="Отправить">
             <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
+            &nbsp;<a href="#costDialog" class="btn-link" alt="Узнать стоимость" data-toggle="modal">Узнать стоимость</a>
           </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="costDialog" class="modal large hide" tabindex="-1" role="dialog" aria-labelledby="costDialogLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="costDialogLabel">Примерная стоимость заказа</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal barrating">
+      <div class="control-group">
+        <label class="control-label" for="cards">Карточки:</label>
+        <div class="span4">
+          <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
+        </div>
+        <div>
+          <span data-bind="if: cardsCost"><!-- ko text: cardsCost --><!--/ko--> руб</span>
+          <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="poster">Плакат:</label>
+        <div class="span4">
+          <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
+        </div>
+        <div>
+          <span data-bind="if: posterCost"><!-- ko text: posterCost --><!--/ko--> руб</span>
+          <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="address_city">Город, Страна:</label>
+        <div class="span4">
+          <input type="text" name="address_city" data-bind="value: addressCity" required class="typeahead" autocomplete="off">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="delivery">Способ доставки:</label>
+        <div class="span4">
+          <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
+            <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
+          </div>
+          <p data-bind="text: deliveryComment"></p>
+        </div>
+        <div>
+          <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="delivery">Примерная стоимость:</label>
+        <div class="span4">
+          <span data-bind="if: totalCost"><!-- ko text: totalCost --><!--/ko--> руб</span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"></label>
+        <div class="span6">
+          Конечная стоимость может быть выше и будет указана при оформлении заказа
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Закрыть</button>
   </div>
 </div>
 
