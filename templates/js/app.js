@@ -200,7 +200,7 @@ $(function() {
               } else if (cards > 0) {
                   cost =  this.addressIsRussia() ? 100 : 300;
               }
-              cost += weightFactor * (this.addressIsRussia() ? 50 : 100);
+              cost += weightFactor * (this.addressIsRussia() ? 50 : 150);
           } else if (delivery.text == 'EMS') {
               if (poster > 0) {
                   cost = 100 + (this.addressIsRussia() ? 650 : 1250);
