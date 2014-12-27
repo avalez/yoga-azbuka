@@ -57,27 +57,21 @@ $(function() {
               return !this.addressIsMoscow();
           }, this),
           text: 'Самовывоз',
-          comment: 'м.Щелковская, м. Павелецкая или м.Водный стадион',
-          cost: 0
+          comment: 'м.Щелковская, м. Павелецкая или м.Водный стадион'
       }, {
           disable: ko.pureComputed(function() {
               return !this.addressIsMoscow();
           }, this),
           text: 'Курьер',
-          comment: 'Доставка до любой станции метро 300 руб',
-          cost: 350
+          comment: 'Доставка до станции метро 300 руб'
       }, {
           disable: false,
           text: 'Почта',
-          comment: 'Срок доставки по России 7-10 дней, в другие страны 10-14 дней',
-          cost: 0,
-          costWorld: 100
+          comment: 'Срок доставки по России 7-10 дней, в другие страны 10-14 дней'
       }, {
           disable: false,
           text: 'EMS',
-          comment: 'Срок доставки по России 2-4 дня, в другие страны 4-14 дней',
-          cost: 459,
-          costWorld: 1250
+          comment: 'Срок доставки по России 2-4 дня, в другие страны 4-14 дней'
       }];
 
       var productCost = function(value) {
@@ -120,18 +114,23 @@ $(function() {
           if (!delivery) {
               return '';
           }
-          var cost = delivery.cost;
-          if ((delivery.text == 'Почта' || delivery.text == 'EMS') &&
-                  !this.addressIsRussia()) {
-              cost = delivery.costWorld;
-          }
           var cards = this.cards() || 0;
-          if (cards > 0 && delivery.text == 'Почта') {
-              cost += 100;
-          }
           var poster = this.poster() || 0;
-          if (poster > 0 && delivery.text == 'Почта') {
-              cost += 100 + 200; // FIXME: weight
+          var cost = 0;
+          if (delivery.text == 'Почта') {
+              if (poster > 0) {
+                  cost = 100 + (this.addressIsRussia() ? 200 : 1000); // FIXME: weight
+              } else if (cards > 0) {
+                  cost =  this.addressIsRussia() ? 100 : 300; // FIXME: weight
+              }
+          } else if (delivery.text == 'EMS') {
+              if (poster > 0) {
+                  cost = 100 + (this.addressIsRussia() ? 650 : 1250); // FIXME: weight
+              } else if (cards > 0) {
+                  cost = this.addressIsRussia() ? 650 : 1250; // FIXME: weight
+              }
+          } else if (delivery.text == 'Курьер') {
+              cost = 350;
           }
           return cost;
       }, this);
