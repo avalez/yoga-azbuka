@@ -150,7 +150,7 @@
                 <div class="span5">
                   <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
                 </div>
-               <div>
+               <div class="span2">
                  <span data-bind="if: cardsCost"><!-- ko text: cardsCost --><!--/ko--> руб</span>
                  <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
                </div>
@@ -160,7 +160,7 @@
                 <div class="span5">
                   <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
                 </div>
-                <div>
+                <div class="span2">
                   <span data-bind="if: posterCost"><!-- ko text: posterCost --><!--/ko--> руб</span>
                   <span data-bind="if: poster() >= 10">&nbsp;Скидка 10%</span>
                 </div>
@@ -179,7 +179,7 @@
                   </div>
                   <p data-bind="text: deliveryComment"></p>
                 </div>
-                <div>
+                <div class="span2">
                   <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
                 </div>
               </div>
@@ -191,7 +191,7 @@
               </div>
               <div class="control-group">
                 <label class="control-label"></label>
-                <div class="span6">
+                <div class="span7">
                   Конечная стоимость может быть выше и будет указана при оформлении заказа
                 </div>
               </div>
