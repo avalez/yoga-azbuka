@@ -160,17 +160,21 @@ $(function() {
             }, this)
       }];
 
-      var productCost = function(value) {
-          var discount = value >= 10 ? 0.9 : 1;
-          return Math.round(value * 399 * discount);
+      this.discount = ko.pureComputed(function() {
+          return this.cards() + this.poster() >= 10 ? 0.1 : 0;
+      }, this);
+
+      this.productCost = function(value) {
+          var discount = this.discount();
+          return value * 399 * (1 - discount);
       };
 
       this.cardsCost = ko.pureComputed(function() {
-          return productCost(this.cards());
+          return this.productCost(this.cards());
       }, this);
 
       this.posterCost = ko.pureComputed(function() {
-          return productCost(this.poster());
+          return this.productCost(this.poster());
       }, this);
 
       this.addressIsMoscow =  ko.pureComputed(function() {

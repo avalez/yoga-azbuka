@@ -69,12 +69,12 @@ body {
 .row-fluid {
   margin: 30px 0;
 }
-.carousel, .alert {
- margin-bottom: 0 !important;
-}
 .testimonial {
  background-color: #F6B44C;
  padding: 8px 75px;
+}
+.discount {
+  text-decoration: line-through;
 }
 /* ------------------------------------------------------------------------------
   H E A D E R
@@ -135,8 +135,11 @@ ul.nostyle li {
 #main {
   min-height: 250px;
 }
-.carousel-control {
-  line-height: 42px !important;
+body .carousel-control {
+  line-height: 42px;
+}
+body .carousel, .alert {
+ margin-bottom: 0;
 }
 body .modal {
   width: 850px;
@@ -150,7 +153,6 @@ body .btn.active {
   color: #fff;
   background-color: #5faee3;
 }
-
 body .form-actions {
   background-color: transparent;
 }
