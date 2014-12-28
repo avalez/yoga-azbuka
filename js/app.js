@@ -149,24 +149,40 @@ $(function() {
       }, {
           disable: false,
           text: 'Почта',
-          comment: 'Срок доставки по России 7-10 дней, в другие страны 10-14 дней'
+          comment: ko.pureComputed(function() {
+              return this.addressIsRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
+            }, this)
       }, {
-          disable: false,
+          disable: ko.pureComputed(function() {
+              return this.addressIsMoscow();
+            }, this),
           text: 'EMS',
-          comment: 'Срок доставки по России 2-4 дня, в другие страны 4-14 дней'
+          comment: ko.pureComputed(function() {
+              return this.addressIsRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
+            }, this)
+        }, {
+          disable: ko.pureComputed(function() {
+              return this.addressIsMoscow();
+            }, this),
+          text: 'Другое',
+          comment: 'Самовывоз/курьер в Мовскве'
       }];
 
-      var productCost = function(value) {
-          var discount = value >= 10 ? 0.9 : 1;
-          return Math.round(value * 399 * discount);
+      this.discount = ko.pureComputed(function() {
+          return this.cards() + this.poster() >= 10 ? 0.1 : 0;
+      }, this);
+
+      this.productCost = function(value) {
+          var discount = this.discount();
+          return value * 399 * (1 - discount);
       };
 
       this.cardsCost = ko.pureComputed(function() {
-          return productCost(this.cards());
+          return this.productCost(this.cards());
       }, this);
 
       this.posterCost = ko.pureComputed(function() {
-          return productCost(this.poster());
+          return this.productCost(this.poster());
       }, this);
 
       this.addressIsMoscow =  ko.pureComputed(function() {
@@ -220,9 +236,10 @@ $(function() {
           return cost;
       }, this);
 
-      this.deliveryComment = ko.pureComputed(function() {
+      this.totalComment = ko.pureComputed(function() {
             var delivery = this.delivery();
-            return delivery ? delivery.comment : '';
+            return delivery && ['Почта', 'EMS', 'Другое'].indexOf(delivery.text) >= 0 ?
+                'Конечная стоимость будет указана при оформлении заказа' : '';
         }, this);
 
       this.totalCost = ko.pureComputed(function() {

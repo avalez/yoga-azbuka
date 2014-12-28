@@ -236,52 +236,59 @@
             <form class="form-horizontal barrating">
               <div class="control-group">
                 <label class="control-label" for="cards">Карточки:</label>
-                <div class="span6">
+                <div class="span5">
                   <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
                 </div>
-               <div class="span2">
-                 <span data-bind="if: cardsCost"><!-- ko text: cardsCost --><!--/ko--> руб</span>
-                 <span data-bind="if: cards() >= 10">&nbsp;Скидка 10%</span>
+               <div class="span3">
+                 <span data-bind="if: cardsCost, css: {discount : discount}"><!-- ko text: Math.round(cardsCost() / (1 - discount())) --><!--/ko--> руб</span>
+                 <span data-bind="if: cardsCost() && discount()"><!-- ko text: Math.round(cardsCost()) --><!--/ko--> руб</span>
                </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="poster">Плакат:</label>
-                <div class="span6">
+                <div class="span5">
                   <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
                 </div>
-                <div class="span2">
-                  <span data-bind="if: posterCost"><!-- ko text: posterCost --><!--/ko--> руб</span>
-                  <span data-bind="if: poster() >= 10">&nbsp;Скидка 10%</span>
+                <div class="span3">
+                  <span data-bind="if: posterCost, css: {discount : discount}"><!-- ko text: Math.round(posterCost() / (1 - discount())) --><!--/ko--> руб</span>
+                  <span data-bind="if: posterCost() && discount()"><!-- ko text: Math.round(posterCost()) --><!--/ko--> руб</span>
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="address_city">Город, Страна:</label>
-                <div class="span6">
+                <div class="span5">
                   <input type="text" name="address_city" data-bind="value: addressCity" required class="typeahead" autocomplete="off">
                 </div>
               </div>
-              <div class="control-group">
+              <div class="control-group with-comment">
                 <label class="control-label" for="delivery">Способ доставки:</label>
-                <div class="span6">
+                <div class="span5">
                   <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
-                    <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
+                    <!-- ko ifnot: $data.disable -->
+                    <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text"></button>
+                    <!--/ko-->
                   </div>
-                  <p data-bind="text: deliveryComment"></p>
                 </div>
-                <div class="span2">
+                <div class="span4">
                   <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label" for="delivery">Примерная стоимость:</label>
-                <div class="span6">
+                <label class="control-label">&nbsp;</label>
+                <div class="span7">
+                    <span data-bind="if: delivery"><!-- ko text: delivery().comment --><!--/ko--></span>
+                </div>
+              </div>
+              <div class="control-group with-comment">
+                <label class="control-label">Итого:</label>
+                <div class="span2">
                   <span data-bind="if: totalCost"><!-- ko text: totalCost --><!--/ko--> руб</span>
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label"></label>
-                <div class="span8">
-                  Конечная стоимость может быть выше и будет указана при оформлении заказа
+              <div class="control-group with-comment">
+                <label class="control-label">&nbsp;</label>
+                <div class="span7">
+                    <span data-bind="text: totalComment()"></span>
                 </div>
               </div>
               <div class="form-actions">
