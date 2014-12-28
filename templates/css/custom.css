@@ -149,10 +149,21 @@ body .modal {
 body .modal-backdrop {
   background-color: #fff;
 }
+body .typeahead {
+  margin-top: 0;
+}
 body .btn.active {
   color: #fff;
   background-color: #5faee3;
 }
+.control-group.with-comment {
+  margin-bottom: 0;
+}
+.control-group div > span {
+  display: block;
+  padding-top: 5px;
+}
 body .form-actions {
   background-color: transparent;
+  margin: 0;
 }

@@ -150,14 +150,22 @@ $(function() {
           disable: false,
           text: 'Почта',
           comment: ko.pureComputed(function() {
-                return this.addressIsRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
+              return this.addressIsRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
             }, this)
       }, {
-          disable: false,
+          disable: ko.pureComputed(function() {
+              return this.addressIsMoscow();
+            }, this),
           text: 'EMS',
           comment: ko.pureComputed(function() {
-                return this.addressIsRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
+              return this.addressIsRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
             }, this)
+        }, {
+          disable: ko.pureComputed(function() {
+              return this.addressIsMoscow();
+            }, this),
+          text: 'Другое',
+          comment: 'Самовывоз/курьер в Мовскве'
       }];
 
       this.discount = ko.pureComputed(function() {
@@ -228,9 +236,10 @@ $(function() {
           return cost;
       }, this);
 
-      this.deliveryComment = ko.pureComputed(function() {
+      this.totalComment = ko.pureComputed(function() {
             var delivery = this.delivery();
-            return delivery ? delivery.comment : '';
+            return delivery && ['Почта', 'EMS', 'Другое'].indexOf(delivery.text) >= 0 ?
+                'Конечная стоимость будет указана при оформлении заказа' : '';
         }, this);
 
       this.totalCost = ko.pureComputed(function() {
