@@ -177,7 +177,7 @@
                   <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: deliveryOptions">
                     <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text, disable: $data.disable"></button>
                   </div>
-                  <p data-bind="text: deliveryComment"></p>
+                  <p data-bind="text: deliveryComment()"></p>
                 </div>
                 <div class="span2">
                   <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>

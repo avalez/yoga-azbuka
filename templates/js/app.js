@@ -149,11 +149,15 @@ $(function() {
       }, {
           disable: false,
           text: 'Почта',
-          comment: 'Срок доставки по России 7-10 дней, в другие страны 10-14 дней'
+          comment: ko.pureComputed(function() {
+                return this.addressIsRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
+            }, this)
       }, {
           disable: false,
           text: 'EMS',
-          comment: 'Срок доставки по России 2-4 дня, в другие страны 4-14 дней'
+          comment: ko.pureComputed(function() {
+                return this.addressIsRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
+            }, this)
       }];
 
       var productCost = function(value) {
