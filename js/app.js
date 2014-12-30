@@ -87,8 +87,37 @@ $(function() {
     isLoading === true ? $e.show() : $e.hide();
   }
 
+  $.validator.setDefaults({ 
+      ignore: [], // validate hidden fields
+  });
+  var $form = $('form.product');
+  $form.validate({
+    errorPlacement: function(error, element) {
+      if (element.attr('name') == 'cards' || element.attr('name') == 'poster') {
+        error.insertAfter($('.br-widget', element.parent()));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    rules: {
+      cards: {
+        required: function(element) {
+          return !$("select[name='poster']").val();
+        }
+      },
+      poster: {
+        required: function(element) {
+          return !$("select[name='cards']").val();
+        }
+      }
+    },
+    submitHandler: function(form) {
+      $('#wizard').carousel('next');
+    }
+  });
+  
   var submitted = false;
-  var $form = $('#demoLicense form');
+  var $form = $('form.order');
   $form.validate({
     submitHandler: function(form) {
       if (submitted) {
@@ -97,12 +126,6 @@ $(function() {
       ga('send', 'event', 'order', 'create'); 
       submitted = true;
       loading(true);
-      var fullName = $form.find('input[name="full_name"]').val();
-      var names = fullName.split(/[\s,]+/);
-      $form.find('input[name="first_name"]').val(names[0]);
-      if (names.length > 1) {
-        $form.find('input[name="last_name"]').val(names[1]);
-      }
       $.ajax({
         url: form.action,
         cache: false,
@@ -167,6 +190,9 @@ $(function() {
           text: 'Другое',
           comment: 'Самовывоз/курьер в Мовскве'
       }];
+      this.phone = ko.observable();
+      this.addressStreet = ko.observable();
+      this.addressIndex = ko.observable();
 
       this.discount = ko.pureComputed(function() {
           return this.cards() + this.poster() >= 10 ? 0.1 : 0;
@@ -245,6 +271,36 @@ $(function() {
       this.totalCost = ko.pureComputed(function() {
           return this.cardsCost() + this.posterCost() + this.deliveryCost();
       }, this);
+
+      this.needPhone = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) != -1);
+      }, this);
+
+      this.order = ko.pureComputed(function() {
+          var order = [];
+          var cards = this.cards();
+          if (cards > 0) {
+            order.push("Карточки: " + cards + " шт.");
+          }
+          var poster = this.poster();
+          if (poster > 0) {
+            order.push("Плакат: " + poster + " шт.");
+          }
+          var delivery = this.delivery();
+          if (delivery) {
+              order.push("Способ доставки: " + delivery.text);
+          }
+          if (this.needPhone()) {
+              order.push("Телефон: " + this.phone());
+          } else {              
+              order.push("Адрес: " + (this.addressStreet() || ''));
+              order.push("Город: " + (this.addressCity() || ''));
+              order.push("Индекс: " + (this.addressIndex() || ''));
+          }
+          order.push("Стоимость: " + this.totalCost() + " руб.");
+          return order;
+      }, this);
   };
 
   ko.applyBindings(new ViewModel(1, 0));
@@ -266,4 +322,18 @@ $(function() {
     },
     minLength: 3
   });
+
+  // http://stackoverflow.com/questions/2457032/jquery-validation-change-default-error-message
+  $.extend($.validator.messages, {
+      required: "Это поле обязательное.",
+      number: "Пожалуйста введите число.",
+      email: "Пожалуйста введите адрес электронной почты.",
+  });
+
+  $.validator.addMethod("phoneRU", function(phone_number, element) {
+  	var phone_number = phone_number.replace(/\s+/g, "");
+  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/); //spaces are trimmed
+  	return this.optional(element) || phone_number.length > 11 && match;
+  }, "Пожалуйста введите номер телефона.");
+  
 });

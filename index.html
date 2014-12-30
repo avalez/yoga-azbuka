@@ -105,7 +105,7 @@
         <li>Формат: А1 (60х85 см)</li>
         <li>Цена: 399 руб</li>
       </ul>
-      <button class="btn btn-success" title="Перейти к форме заказа" onclick="location = '#order'">Заказать</button>
+      <a class="btn btn-success" title="Перейти к форме заказа" href="#wizard" data-slide-to="1" onclick="location = '#order'">Купить</a>
     </div>
     <div class="span6">
       <a data-toggle="lightbox" href="#posterLightbox"><img src="/images/poster.png" title="ПЛАКАТ „Йога-азбука“" alt="ПЛАКАТ „Йога-азбука“" class="img-polaroid"/></a>
@@ -131,7 +131,7 @@
         <li>Формат: 10х15 см</li>
         <li>Цена: 399 руб</li>
       </ul>
-      <button class="btn btn-success" title="Перейти к форме заказа" onclick="location = '#order'">Заказать</button>
+      <a class="btn btn-success" title="Перейти к форме заказа" href="#wizard" data-slide-to="1" onclick="location = '#order'">Купить</a>
     </div>
     <div class="span6">
       <div style="width: 250px; margin: auto">
@@ -185,8 +185,7 @@
         <!-- Carousel items -->
         <div id="wizard" class="carousel-inner slide" data-interval="false">
           <div class="item active">
-
-            <div class="span8">
+            <div class="span9">
               <div id="ri-grid" class="ri-grid ri-grid-size-2 ri-shadow">
                 <img class="ri-loading-image" src="/images/loading.gif"/>
                 <ul class="img-polaroid">
@@ -206,38 +205,19 @@
                 </ul>
               </div>
             </div>
-            <div class="span4 info">
-              <p><b>Уже в продаже!</b> Заполните форму заявки, и мы договоримся о доставке и оплате по e-mail.</p>
-              <div id="demoLicense">
-                <form action="http://yoga-azbuka.appspot.com/digisell" method="post">
-                  <input type="hidden" name="item_number" value="1"/>
-                  <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
-                  <input type="hidden" name="secret" value="preorder"/>
-                  <input type="hidden" name="skip-validation" value="1"/>
-                  <input type="hidden" name="first_name">
-                  <input type="hidden" name="last_name">
-                  <table>
-                    <tr><td><label for="full_name">Имя Фамилия:</label></td></tr>
-                    <tr><td><input type="text" name="full_name" required></td></tr>
-                    <tr><td><label for="payer_email">E-mail:</label></td></tr>
-                    <tr><td><input type="email" name="payer_email" required></td></tr>
-                  </table>
-                  <input type="submit" class="btn btn-success" name="submit" alt="Отправить заявку" value="Отправить">
-                  <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
-                </form>
-                <a class="btn btn-info" href="#wizard" data-slide="next">Рассчитать стоимость</a>
-              </div>
+            <div class="span3 info"">
+              <a class="btn btn-success" href="#wizard" data-slide="next">Купить</a>
             </div>
 
           </div> <!-- / item -->
           <div class="item">
 
             <h3>Расчет стоимости заказа</h3>
-            <form class="form-horizontal barrating">
+            <form class="form-horizontal barrating product">
               <div class="control-group">
                 <label class="control-label" for="cards">Карточки:</label>
                 <div class="span5">
-                  <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
+                  <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards" required></select>
                 </div>
                <div class="span3">
                  <span data-bind="if: cardsCost, css: {discount : discount}"><!-- ko text: Math.round(cardsCost() / (1 - discount())) --><!--/ko--> руб</span>
@@ -247,7 +227,7 @@
               <div class="control-group">
                 <label class="control-label" for="poster">Плакат:</label>
                 <div class="span5">
-                  <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
+                  <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster" ></select>
                 </div>
                 <div class="span3">
                   <span data-bind="if: posterCost, css: {discount : discount}"><!-- ko text: Math.round(posterCost() / (1 - discount())) --><!--/ko--> руб</span>
@@ -268,6 +248,7 @@
                     <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text"></button>
                     <!--/ko-->
                   </div>
+                  <input required type="hidden" name="delivery" data-bind="value: delivery"/>
                 </div>
                 <div class="span4">
                   <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
@@ -292,7 +273,70 @@
                 </div>
               </div>
               <div class="form-actions">
-                <a class="btn btn-info" href="#wizard" data-slide="prev">Вернуться</a>
+                <input type="submit" class="btn btn-success" name="submit" value="Продолжить">
+                <a class="btn" href="#wizard" data-slide="prev">Назад</a>
+              </div>
+            </form>
+
+          </div> <!-- / item -->
+          <div class="item">
+
+            <h3>Оформление заказа</h3>
+            <form action="http://yoga-azbuka.appspot.com/digisell" method="post" class="form-horizontal barrating order">
+              <input type="hidden" name="item_number" value="1"/>
+              <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
+              <input type="hidden" name="secret" value="preorder"/>
+              <input type="hidden" name="skip-validation" value="1"/>
+              <div class="control-group">
+                <label class="control-label" for="full_name">Фамилия Имя Отчество:</label>
+                <div class="span3">
+                  <input type="text" name="full_name" placeholder="Петров Иван Васильевич" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="payer_email">E-mail:</label>
+                <div class="span3">
+                  <input type="email" name="payer_email" placeholder="yourname@example.com" required>
+                </div>
+              </div>
+              <!-- ko if: needPhone() -->
+              <div class="control-group">
+                <label class="control-label" for="phone">Телефон:</label>
+                <div class="span3">
+                  <input type="text" name="phone" data-bind="value: phone" placeholder="8 (965) 123-45-67" required class="phoneRU">
+                </div>
+              </div>
+              <!-- /ko -->
+              <!-- ko ifnot: needPhone() -->
+              <div class="control-group">
+                <label class="control-label" for="address_street">Адресс:</label>
+                <div class="span3">
+                  <input type="text" name="address_street" data-bind="value: addressStreet" placeholder="ул. Пушкина, д.9, кв. 7" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="address_index">Индекс:</label>
+                <div class="span3">
+                  <input type="text" name="address_index" data-bind="value: addressIndex" placeholder="101000" required class="number">
+                </div>
+              </div>
+              <!-- /ko -->
+              <div class="control-group with-comment">
+                <label class="control-label">Заказ</label>
+                <div class="span7">
+                    <textarea name="order" data-bind="text: order().join('\n')" rows="6" class="input-xxlarge" readonly></textarea>
+                </div>
+              </div>
+              <div class="control-group with-comment">
+                <label class="control-label">&nbsp;</label>
+                <div class="span7">
+                    <span data-bind="text: totalComment()"></span>
+                </div>
+              </div>
+              <div class="form-actions">
+                <input type="submit" class="btn btn-success" name="submit" alt="Отправить заявку" value="Отправить">
+                <a class="btn" href="#wizard" data-slide="prev">Назад</a>
+                <img id="loading" class="ri-loading-image" src="/images/loading.gif"/>
               </div>
             </form>
 
@@ -364,7 +408,7 @@
       Реквизиты для оплаты будут указаны в письме-подверждении заказа.
       </p>
     </div>
-    <button class="btn btn-success" title="Перейти к форме заказа" onclick="location = '#order'">Заказать</button>
+    <button class="btn btn-success" title="Перейти к форме заказа" onclick="location = '#order'">Купить</button>
   </div>
   <div class="row-fluid">
     <div class="span12">
