@@ -294,7 +294,7 @@ $(function() {
           }
           var delivery = this.delivery();
           if (delivery) {
-              order.push("Спасоб доставки: " + delivery.text);
+              order.push("Способ доставки: " + delivery.text);
           }
           if (this.needPhone()) {
               order.push("Телефон: " + this.phone());
