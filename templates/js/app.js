@@ -167,6 +167,8 @@ $(function() {
           text: 'Другое',
           comment: 'Самовывоз/курьер в Мовскве'
       }];
+      this.phone = ko.observable();
+      this.addressStreet = ko.observable();
 
       this.discount = ko.pureComputed(function() {
           return this.cards() + this.poster() >= 10 ? 0.1 : 0;
@@ -265,5 +267,10 @@ $(function() {
       });
     },
     minLength: 3
+  });
+
+  // http://stackoverflow.com/questions/2457032/jquery-validation-change-default-error-message
+  jQuery.extend(jQuery.validator.messages, {
+      required: "Это поле обязательное."
   });
 });
