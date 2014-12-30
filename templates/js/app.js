@@ -126,12 +126,6 @@ $(function() {
       ga('send', 'event', 'order', 'create'); 
       submitted = true;
       loading(true);
-      var fullName = $form.find('input[name="full_name"]').val();
-      var names = fullName.split(/[\s,]+/);
-      $form.find('input[name="first_name"]').val(names[0]);
-      if (names.length > 1) {
-        $form.find('input[name="last_name"]').val(names[1]);
-      }
       $.ajax({
         url: form.action,
         cache: false,
@@ -198,6 +192,7 @@ $(function() {
       }];
       this.phone = ko.observable();
       this.addressStreet = ko.observable();
+      this.addressIndex = ko.observable();
 
       this.discount = ko.pureComputed(function() {
           return this.cards() + this.poster() >= 10 ? 0.1 : 0;
@@ -300,7 +295,8 @@ $(function() {
               order.push("Телефон: " + this.phone());
           } else {              
               order.push("Адрес: " + (this.addressStreet() || ''));
-              order.push("Город: " + this.addressCity());
+              order.push("Город: " + (this.addressCity() || ''));
+              order.push("Индекс: " + (this.addressIndex() || ''));
           }
           order.push("Стоимость: " + this.totalCost() + " руб.");
           return order;
@@ -330,7 +326,8 @@ $(function() {
   // http://stackoverflow.com/questions/2457032/jquery-validation-change-default-error-message
   $.extend($.validator.messages, {
       required: "Это поле обязательное.",
-      email: "Пожалуйста введите адрес электронной почты."
+      number: "Пожалуйста введите число.",
+      email: "Пожалуйста введите адрес электронной почты.",
   });
 
   $.validator.addMethod("phoneRU", function(phone_number, element) {

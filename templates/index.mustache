@@ -198,12 +198,10 @@
               <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
               <input type="hidden" name="secret" value="preorder"/>
               <input type="hidden" name="skip-validation" value="1"/>
-              <input type="hidden" name="first_name">
-              <input type="hidden" name="last_name">
               <div class="control-group">
-                <label class="control-label" for="full_name">Имя Фамилия:</label>
+                <label class="control-label" for="full_name">Фамилия Имя Отчество:</label>
                 <div class="span3">
-                  <input type="text" name="full_name" placeholder="Степан Степанов" required>
+                  <input type="text" name="full_name" placeholder="Петров Иван Васильевич" required>
                 </div>
               </div>
               <div class="control-group">
@@ -227,11 +225,17 @@
                   <input type="text" name="address_street" data-bind="value: addressStreet" placeholder="ул. Пушкина, д.9, кв. 7" required>
                 </div>
               </div>
+              <div class="control-group">
+                <label class="control-label" for="address_index">Индекс:</label>
+                <div class="span3">
+                  <input type="text" name="address_index" data-bind="value: addressIndex" placeholder="101000" required class="number">
+                </div>
+              </div>
               <!-- /ko -->
               <div class="control-group with-comment">
                 <label class="control-label">Заказ</label>
                 <div class="span7">
-                    <textarea name="order" data-bind="text: order().join('\n')" rows="5" class="input-xxlarge" readonly></textarea>
+                    <textarea name="order" data-bind="text: order().join('\n')" rows="6" class="input-xxlarge" readonly></textarea>
                 </div>
               </div>
               <div class="control-group with-comment">
