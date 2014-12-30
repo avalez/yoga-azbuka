@@ -124,11 +124,11 @@
           <div class="item">
 
             <h3>Расчет стоимости заказа</h3>
-            <form class="form-horizontal barrating">
+            <form class="form-horizontal barrating product">
               <div class="control-group">
                 <label class="control-label" for="cards">Карточки:</label>
                 <div class="span5">
-                  <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards"></select>
+                  <select name="cards" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: cards" required></select>
                 </div>
                <div class="span3">
                  <span data-bind="if: cardsCost, css: {discount : discount}"><!-- ko text: Math.round(cardsCost() / (1 - discount())) --><!--/ko--> руб</span>
@@ -138,7 +138,7 @@
               <div class="control-group">
                 <label class="control-label" for="poster">Плакат:</label>
                 <div class="span5">
-                  <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster"></select>
+                  <select name="poster" class="barrating" data-bind="options: ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], value: poster" ></select>
                 </div>
                 <div class="span3">
                   <span data-bind="if: posterCost, css: {discount : discount}"><!-- ko text: Math.round(posterCost() / (1 - discount())) --><!--/ko--> руб</span>
@@ -159,6 +159,7 @@
                     <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text"></button>
                     <!--/ko-->
                   </div>
+                  <input required type="hidden" name="delivery" data-bind="value: delivery"/>
                 </div>
                 <div class="span4">
                   <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
@@ -183,16 +184,17 @@
                 </div>
               </div>
               <div class="form-actions">
+                <input type="submit" class="btn btn-success" name="submit" value="Продолжить">
                 <a class="btn btn-info" href="#wizard" data-slide="next">Продолжить</a>
                 <a class="btn" href="#wizard" data-slide="prev">Назад</a>
               </div>
             </form>
 
           </div> <!-- / item -->
-          <div class="item" id="demoLicense">
+          <div class="item">
 
             <h3>Оформление заказа</h3>
-            <form action="http://yoga-azbuka.appspot.com/digisell" method="post" class="form-horizontal barrating">
+            <form action="http://yoga-azbuka.appspot.com/digisell" method="post" class="form-horizontal barrating order">
               <input type="hidden" name="item_number" value="1"/>
               <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
               <input type="hidden" name="secret" value="preorder"/>
@@ -214,7 +216,7 @@
               <div class="control-group">
                 <label class="control-label" for="phone">Телефон:</label>
                 <div class="span3">
-                  <input type="text" name="phone" data-bind="value: phone" placeholder="8 (965) 123-45-67" required>
+                  <input type="text" name="phone" data-bind="value: phone" placeholder="8 (965) 123-45-67" required class="phoneRU">
                 </div>
               </div>
               <div class="control-group">

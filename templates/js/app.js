@@ -87,8 +87,37 @@ $(function() {
     isLoading === true ? $e.show() : $e.hide();
   }
 
+  $.validator.setDefaults({ 
+      ignore: [], // validate hidden fields
+  });
+  var $form = $('form.product');
+  $form.validate({
+    errorPlacement: function(error, element) {
+      if (element.attr('name') == 'cards' || element.attr('name') == 'poster') {
+        error.insertAfter($('.br-widget', element.parent()));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    rules: {
+      cards: {
+        required: function(element) {
+          return !$("select[name='poster']").val();
+        }
+      },
+      poster: {
+        required: function(element) {
+          return !$("select[name='cards']").val();
+        }
+      }
+    },
+    submitHandler: function(form) {
+      $('#wizard').carousel('next');
+    }
+  });
+  
   var submitted = false;
-  var $form = $('#demoLicense form');
+  var $form = $('form.order');
   $form.validate({
     submitHandler: function(form) {
       if (submitted) {
@@ -270,7 +299,15 @@ $(function() {
   });
 
   // http://stackoverflow.com/questions/2457032/jquery-validation-change-default-error-message
-  jQuery.extend(jQuery.validator.messages, {
-      required: "Это поле обязательное."
+  $.extend($.validator.messages, {
+      required: "Это поле обязательное.",
+      email: "Пожалуйста введите адрес электронной почты."
   });
+
+  $.validator.addMethod("phoneRU", function(phone_number, element) {
+  	var phone_number = phone_number.replace(/\s+/g, "");
+  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/); //spaces are trimmed
+  	return this.optional(element) || phone_number.length > 11 && match;
+  }, "Пожалуйста введите номер телефона.");
+  
 });
