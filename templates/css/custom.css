@@ -167,3 +167,6 @@ body .form-actions {
   background-color: transparent;
   margin: 0;
 }
+body textarea[readonly] {
+  background-color: #fff;
+}

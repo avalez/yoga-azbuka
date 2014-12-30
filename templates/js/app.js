@@ -276,6 +276,35 @@ $(function() {
       this.totalCost = ko.pureComputed(function() {
           return this.cardsCost() + this.posterCost() + this.deliveryCost();
       }, this);
+
+      this.needPhone = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) != -1);
+      }, this);
+
+      this.order = ko.pureComputed(function() {
+          var order = [];
+          var cards = this.cards();
+          if (cards > 0) {
+            order.push("Карточки: " + cards + " шт.");
+          }
+          var poster = this.poster();
+          if (poster > 0) {
+            order.push("Плакат: " + poster + " шт.");
+          }
+          var delivery = this.delivery();
+          if (delivery) {
+              order.push("Спасоб доставки: " + delivery.text);
+          }
+          if (this.needPhone()) {
+              order.push("Телефон: " + this.phone());
+          } else {              
+              order.push("Адрес: " + (this.addressStreet() || ''));
+              order.push("Город: " + this.addressCity());
+          }
+          order.push("Стоимость: " + this.totalCost() + " руб.");
+          return order;
+      }, this);
   };
 
   ko.applyBindings(new ViewModel(1, 0));

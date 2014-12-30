@@ -185,7 +185,6 @@
               </div>
               <div class="form-actions">
                 <input type="submit" class="btn btn-success" name="submit" value="Продолжить">
-                <a class="btn btn-info" href="#wizard" data-slide="next">Продолжить</a>
                 <a class="btn" href="#wizard" data-slide="prev">Назад</a>
               </div>
             </form>
@@ -213,16 +212,26 @@
                   <input type="email" name="payer_email" placeholder="yourname@example.com" required>
                 </div>
               </div>
+              <!-- ko if: needPhone() -->
               <div class="control-group">
                 <label class="control-label" for="phone">Телефон:</label>
                 <div class="span3">
                   <input type="text" name="phone" data-bind="value: phone" placeholder="8 (965) 123-45-67" required class="phoneRU">
                 </div>
               </div>
+              <!-- /ko -->
+              <!-- ko ifnot: needPhone() -->
               <div class="control-group">
                 <label class="control-label" for="address_street">Адресс:</label>
                 <div class="span3">
                   <input type="text" name="address_city" data-bind="value: addressStreet" placeholder="ул. Пушкина, д.9, кв. 7" required>
+                </div>
+              </div>
+              <!-- /ko -->
+              <div class="control-group with-comment">
+                <label class="control-label">Заказ</label>
+                <div class="span7">
+                    <textarea name="order" data-bind="text: order().join('\n')" rows="5" class="input-xxlarge" readonly></textarea>
                 </div>
               </div>
               <div class="control-group with-comment">
