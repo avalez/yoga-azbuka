@@ -218,13 +218,15 @@
                 </div>
               </div>
               <!-- /ko -->
-              <!-- ko ifnot: needPhone() -->
+              <!-- ko if: needStreet() -->
               <div class="control-group">
                 <label class="control-label" for="address_street">Адресс:</label>
                 <div class="span3">
                   <input type="text" name="address_street" data-bind="value: addressStreet" placeholder="ул. Пушкина, д.9, кв. 7" required>
                 </div>
               </div>
+              <!-- /ko -->
+              <!-- ko if: needIndex() -->
               <div class="control-group">
                 <label class="control-label" for="address_index">Индекс:</label>
                 <div class="span3">

@@ -188,7 +188,7 @@ $(function() {
               return this.addressIsMoscow();
             }, this),
           text: 'Другое',
-          comment: 'Самовывоз/курьер в Мовскве'
+          comment: 'Самовывоз/курьер в Москве'
       }];
       this.phone = ko.observable();
       this.addressStreet = ko.observable();
@@ -277,6 +277,16 @@ $(function() {
           return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) != -1);
       }, this);
 
+      this.needStreet = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return delivery && (['Самовывоз'].indexOf(delivery.text) == -1);
+      }, this);
+
+      this.needIndex = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) == -1);
+      }, this);
+
       this.order = ko.pureComputed(function() {
           var order = [];
           var cards = this.cards();
@@ -292,10 +302,13 @@ $(function() {
               order.push("Способ доставки: " + delivery.text);
           }
           if (this.needPhone()) {
-              order.push("Телефон: " + this.phone());
-          } else {              
+              order.push("Телефон: " + (this.phone() || ''));
+          }
+          if (this.needStreet()) {              
               order.push("Адрес: " + (this.addressStreet() || ''));
               order.push("Город: " + (this.addressCity() || ''));
+          }
+          if (this.needIndex()) {              
               order.push("Индекс: " + (this.addressIndex() || ''));
           }
           order.push("Стоимость: " + this.totalCost() + " руб.");
