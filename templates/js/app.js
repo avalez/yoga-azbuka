@@ -162,7 +162,7 @@ $(function() {
               return !this.addressIsMoscow();
           }, this),
           text: 'Самовывоз',
-          comment: 'м.Щелковская, м. Павелецкая или м.Водный стадион'
+          comment: 'м.Щелковская, м.Павелецкая или м.Водный Стадион'
       }, {
           disable: ko.pureComputed(function() {
               return !this.addressIsMoscow();
@@ -261,6 +261,12 @@ $(function() {
           }
           return cost;
       }, this);
+
+
+      this.deliveryText = ko.pureComputed(function() {
+            var delivery = this.delivery() || {};
+            return delivery.text || '';
+        }, this);
 
       this.totalComment = ko.pureComputed(function() {
             var delivery = this.delivery();
