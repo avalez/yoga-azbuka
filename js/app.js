@@ -162,7 +162,7 @@ $(function() {
               return !this.addressIsMoscow();
           }, this),
           text: 'Самовывоз',
-          comment: 'м.Щелковская, м. Павелецкая или м.Водный стадион'
+          comment: 'м.Щелковская, м.Павелецкая или м.Водный Стадион'
       }, {
           disable: ko.pureComputed(function() {
               return !this.addressIsMoscow();
@@ -188,7 +188,7 @@ $(function() {
               return this.addressIsMoscow();
             }, this),
           text: 'Другое',
-          comment: 'Самовывоз/курьер в Мовскве'
+          comment: 'Самовывоз/курьер в Москве'
       }];
       this.phone = ko.observable();
       this.addressStreet = ko.observable();
@@ -262,6 +262,12 @@ $(function() {
           return cost;
       }, this);
 
+
+      this.deliveryText = ko.pureComputed(function() {
+            var delivery = this.delivery() || {};
+            return delivery.text || '';
+        }, this);
+
       this.totalComment = ko.pureComputed(function() {
             var delivery = this.delivery();
             return delivery && ['Почта', 'EMS', 'Другое'].indexOf(delivery.text) >= 0 ?
@@ -275,6 +281,16 @@ $(function() {
       this.needPhone = ko.pureComputed(function() {
           var delivery = this.delivery();
           return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) != -1);
+      }, this);
+
+      this.needStreet = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return delivery && (['Самовывоз'].indexOf(delivery.text) == -1);
+      }, this);
+
+      this.needIndex = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) == -1);
       }, this);
 
       this.order = ko.pureComputed(function() {
@@ -292,10 +308,13 @@ $(function() {
               order.push("Способ доставки: " + delivery.text);
           }
           if (this.needPhone()) {
-              order.push("Телефон: " + this.phone());
-          } else {              
+              order.push("Телефон: " + (this.phone() || ''));
+          }
+          if (this.needStreet()) {              
               order.push("Адрес: " + (this.addressStreet() || ''));
               order.push("Город: " + (this.addressCity() || ''));
+          }
+          if (this.needIndex()) {              
               order.push("Индекс: " + (this.addressIndex() || ''));
           }
           order.push("Стоимость: " + this.totalCost() + " руб.");
@@ -331,9 +350,15 @@ $(function() {
   });
 
   $.validator.addMethod("phoneRU", function(phone_number, element) {
-  	var phone_number = phone_number.replace(/\s+/g, "");
-  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/); //spaces are trimmed
-  	return this.optional(element) || phone_number.length > 10 && match;
+  	phone_number = phone_number.replace(/\s+/g, "");
+  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/);
+  	return this.optional(element) || (phone_number.length > 10 && match);
   }, "Пожалуйста введите номер телефона.");
   
+  $.validator.addMethod("fullName", function(full_name, element) {
+    full_name = full_name.trim().replace(/\s+/g, ' ');
+  	var match = full_name.split(' ');
+  	return this.optional(element) || match.length > 2;
+  }, "Пожалуйста введите Фамилию Имя Отчетсво.");
+
 });

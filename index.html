@@ -287,10 +287,11 @@
               <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
               <input type="hidden" name="secret" value="preorder"/>
               <input type="hidden" name="skip-validation" value="1"/>
+              <input type="hidden" name="delivery" data-bind="value: deliveryText()"/>
               <div class="control-group">
                 <label class="control-label" for="full_name">Фамилия Имя Отчество:</label>
                 <div class="span3">
-                  <input type="text" name="full_name" placeholder="Петров Иван Васильевич" required>
+                  <input type="text" name="full_name" placeholder="Петров Иван Васильевич" required class="fullName">
                 </div>
               </div>
               <div class="control-group">
@@ -307,13 +308,15 @@
                 </div>
               </div>
               <!-- /ko -->
-              <!-- ko ifnot: needPhone() -->
+              <!-- ko if: needStreet() -->
               <div class="control-group">
                 <label class="control-label" for="address_street">Адресс:</label>
                 <div class="span3">
                   <input type="text" name="address_street" data-bind="value: addressStreet" placeholder="ул. Пушкина, д.9, кв. 7" required>
                 </div>
               </div>
+              <!-- /ko -->
+              <!-- ko if: needIndex() -->
               <div class="control-group">
                 <label class="control-label" for="address_index">Индекс:</label>
                 <div class="span3">
