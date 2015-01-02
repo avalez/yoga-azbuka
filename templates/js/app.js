@@ -344,9 +344,15 @@ $(function() {
   });
 
   $.validator.addMethod("phoneRU", function(phone_number, element) {
-  	var phone_number = phone_number.replace(/\s+/g, "");
-  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/); //spaces are trimmed
-  	return this.optional(element) || phone_number.length > 10 && match;
+  	phone_number = phone_number.replace(/\s+/g, "");
+  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/);
+  	return this.optional(element) || (phone_number.length > 10 && match);
   }, "Пожалуйста введите номер телефона.");
   
+  $.validator.addMethod("fullName", function(full_name, element) {
+    full_name = full_name.trim().replace(/\s+/g, ' ');
+  	var match = full_name.split(' ');
+  	return this.optional(element) || match.length > 2;
+  }, "Пожалуйста введите Фамилию Имя Отчетсво.");
+
 });
