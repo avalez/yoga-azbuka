@@ -159,21 +159,17 @@ $(function() {
     }
   });
 
-  var ViewModel = function(cards, poster, delivery) {
+  var ViewModel = function(cards, poster) {
       this.cards = ko.observable(cards);
       this.poster = ko.observable(poster);
       this.addressCity = ko.observable();
-      this.delivery = ko.observable(delivery);
+      this.delivery = ko.observable('');
       this.deliveryOptions = [{
-          disable: ko.pureComputed(function() {
-              return !this.addressIsMoscow();
-          }, this),
+          disable: ko.observable(true),
           text: 'Самовывоз',
           comment: 'м.Щелковская, м.Павелецкая или м.Водный Стадион'
       }, {
-          disable: ko.pureComputed(function() {
-              return !this.addressIsMoscow();
-          }, this),
+          disable: ko.observable(true),
           text: 'Курьер',
           comment: 'Доставка до станции метро 300 руб'
       }, {
@@ -183,19 +179,27 @@ $(function() {
               return this.addressIsRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
             }, this)
       }, {
-          disable: ko.pureComputed(function() {
-              return this.addressIsMoscow();
-            }, this),
+          disable: ko.observable(false),
           text: 'EMS',
           comment: ko.pureComputed(function() {
               return this.addressIsRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
             }, this)
         }, {
-          disable: ko.pureComputed(function() {
-              return this.addressIsMoscow();
-            }, this),
+          disable: ko.observable(false),
           text: 'Другое',
           comment: 'Самовывоз/курьер в Москве'
+      }];
+      this.payment = ko.observable('');
+      this.paymentOptions = [{
+          disable: ko.observable(true),
+          text: 'При получении'
+      }, {
+          disable: false,
+          text: 'PayPal'
+      }, {
+          disable: false,
+          text: 'Перевод',
+          comment: 'Перевод на карту или счет Альфабанк'
       }];
       this.phone = ko.observable();
       this.addressStreet = ko.observable();
@@ -218,14 +222,19 @@ $(function() {
           return this.productCost(this.poster());
       }, this);
 
-      this.addressIsMoscow =  ko.pureComputed(function() {
+      this.addressIsMoscow = ko.pureComputed(function() {
           var address = this.addressCity();
           return address && address.split(",")[0] == 'Москва';
       }, this);
 
-      this.addressIsRussia =  ko.pureComputed(function() {
+      this.addressIsRussia = ko.pureComputed(function() {
           var address = this.addressCity();
           return address && address.split(",")[3].trim() == 'RU';
+      }, this);
+
+      this.deliveryIsPrepaid = ko.pureComputed(function() {
+          var delivery = this.delivery();
+          return !delivery || ['Почта', 'EMS'].indexOf(delivery.text) != -1;
       }, this);
 
       var self = this;
@@ -233,11 +242,29 @@ $(function() {
           self.delivery(value);
       };
 
+      this.paymentChanged = function(value) {
+          self.payment(value);
+      };
+
       this.addressCity.subscribe(function() {
+          var addressIsMoscow = self.addressIsMoscow();
+          self.deliveryOptions[0].disable(!addressIsMoscow);
+          self.deliveryOptions[1].disable(!addressIsMoscow);
+          self.deliveryOptions[3].disable(addressIsMoscow);
+          self.deliveryOptions[4].disable(addressIsMoscow);
           var delivery = self.delivery();
-          if (delivery && delivery.disable) {
+          if (delivery && $.isFunction(delivery.disable) && delivery.disable()) {
               self.delivery('');
           }      
+      });
+
+      this.delivery.subscribe(function() {
+          self.paymentOptions[0].disable(self.deliveryIsPrepaid());
+          var payment = self.payment();
+          if (payment && $.isFunction(payment.disable) && payment.disable()) {
+              self.payment('');
+              $('button[name="payment"].active').removeClass('active');
+          }
       });
 
       this.deliveryCost = ko.pureComputed(function() {
@@ -269,11 +296,15 @@ $(function() {
           return cost;
       }, this);
 
-
-      this.deliveryText = ko.pureComputed(function() {
-            var delivery = this.delivery() || {};
-            return delivery.text || '';
-        }, this);
+      this.paymentCost = ko.pureComputed(function() {
+        var payment = this.payment();
+        if (payment && payment.text == 'PayPal') {
+            var totalCost = this.cardsCost() + this.posterCost() + this.deliveryCost();
+            return Math.round(totalCost * .05);
+        } else {
+            return 0;
+        }
+      }, this);
 
       this.totalComment = ko.pureComputed(function() {
             var delivery = this.delivery();
@@ -282,7 +313,7 @@ $(function() {
         }, this);
 
       this.totalCost = ko.pureComputed(function() {
-          return this.cardsCost() + this.posterCost() + this.deliveryCost();
+          return this.cardsCost() + this.posterCost() + this.deliveryCost() + this.paymentCost();
       }, this);
 
       this.needPhone = ko.pureComputed(function() {
@@ -323,6 +354,10 @@ $(function() {
           }
           if (this.needIndex()) {              
               order.push("Индекс: " + (this.addressIndex() || ''));
+          }
+          var payment = this.payment();
+          if (payment) {
+              order.push("Способ оплаты: " + payment.text);
           }
           order.push("Стоимость: " + this.totalCost() + " руб.");
           return order;
