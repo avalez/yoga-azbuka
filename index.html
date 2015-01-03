@@ -248,7 +248,7 @@
                     <button name="delivery" type="button" class="btn" data-bind="click: $parent.deliveryChanged, text: $data.text"></button>
                     <!--/ko-->
                   </div>
-                  <input required type="hidden" name="delivery" data-bind="value: delivery"/>
+                  <input required type="hidden" name="delivery" data-bind="value: delivery().text"/>
                 </div>
                 <div class="span4">
                   <span data-bind="if: deliveryCost"><!-- ko text: deliveryCost --><!--/ko--> руб</span>
@@ -258,6 +258,24 @@
                 <label class="control-label">&nbsp;</label>
                 <div class="span7">
                     <span data-bind="if: delivery"><!-- ko text: delivery().comment --><!--/ko--></span>
+                </div>
+              </div>
+              <div class="control-group with-comment">
+                <label class="control-label" for="payment">Способ оплаты:</label>
+                <div class="span5">
+                  <div class="btn-group" data-toggle="buttons-radio" data-bind="foreach: paymentOptions">
+                    <button name="payment" type="button" class="btn" data-bind="click: $parent.paymentChanged, text: $data.text, disable: $data.disable"></button>
+                  </div>
+                  <input required type="hidden" name="payment" data-bind="value: payment().text"/>
+                </div>
+                <div class="span4">
+                  <span data-bind="if: paymentCost"><!-- ko text: paymentCost --><!--/ko--> руб</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">&nbsp;</label>
+                <div class="span7">
+                    <span data-bind="if: payment"><!-- ko text: payment().comment --><!--/ko--></span>
                 </div>
               </div>
               <div class="control-group with-comment">
@@ -274,7 +292,7 @@
               </div>
               <div class="form-actions">
                 <input type="submit" class="btn btn-success" name="submit" value="Продолжить">
-                <a class="btn" href="#wizard" data-slide="prev">Назад</a>
+                <a class="btn" href="#wizard" data-slide="prev">Отменить</a>
               </div>
             </form>
 
@@ -287,7 +305,8 @@
               <input type="hidden" name="receiver_email" value="zhuravskaya.o@gmail.com"/>
               <input type="hidden" name="secret" value="preorder"/>
               <input type="hidden" name="skip-validation" value="1"/>
-              <input type="hidden" name="delivery" data-bind="value: deliveryText()"/>
+              <input type="hidden" name="delivery" data-bind="value: delivery().text"/>
+              <input type="hidden" name="payment" data-bind="value: payment().text"/>
               <div class="control-group">
                 <label class="control-label" for="full_name">Фамилия Имя Отчество:</label>
                 <div class="span3">
@@ -327,7 +346,7 @@
               <div class="control-group with-comment">
                 <label class="control-label">Заказ</label>
                 <div class="span7">
-                    <textarea name="order" data-bind="text: order().join('\n')" rows="6" class="input-xxlarge" readonly></textarea>
+                    <textarea name="order" data-bind="text: order().join('\n')" rows="7" class="input-xxlarge" readonly></textarea>
                 </div>
               </div>
               <div class="control-group with-comment">
