@@ -270,7 +270,7 @@ $(function() {
       this.deliveryCost = ko.pureComputed(function() {
           var delivery = this.delivery();
           if (!delivery) {
-              return '';
+              return 0
           }
           var cards = this.cards() || 0;
           var poster = this.poster() || 0;
