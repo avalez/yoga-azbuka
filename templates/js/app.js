@@ -149,6 +149,13 @@ $(function() {
             loading(false);
         }
       });
+    },
+    rules: {
+      full_name: {
+        fullName: function(element) {
+          return ['Почта', 'EMS'].indexOf($(".order input[name='delivery']").val()) != -1;
+        }
+      }
     }
   });
 
@@ -355,10 +362,10 @@ $(function() {
   	return this.optional(element) || (phone_number.length > 10 && match);
   }, "Пожалуйста введите номер телефона.");
   
-  $.validator.addMethod("fullName", function(full_name, element) {
+  $.validator.addMethod("fullName", function(full_name, element, enabled) {
     full_name = full_name.trim().replace(/\s+/g, ' ');
   	var match = full_name.split(' ');
-  	return this.optional(element) || match.length > 2;
+  	return this.optional(element) || !enabled || match.length > 2;
   }, "Пожалуйста введите Фамилию Имя Отчетсво.");
 
 });
