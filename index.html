@@ -319,7 +319,7 @@
                   <input type="email" name="payer_email" placeholder="yourname@example.com" required>
                 </div>
               </div>
-              <!-- ko if: needPhone() -->
+              <!-- ko if: isPhoneNeeded() -->
               <div class="control-group">
                 <label class="control-label" for="phone">Телефон:</label>
                 <div class="span3">
@@ -327,7 +327,7 @@
                 </div>
               </div>
               <!-- /ko -->
-              <!-- ko if: needStreet() -->
+              <!-- ko if: isStreetNeeded() -->
               <div class="control-group">
                 <label class="control-label" for="address_street">Адресс:</label>
                 <div class="span3">
@@ -335,7 +335,7 @@
                 </div>
               </div>
               <!-- /ko -->
-              <!-- ko if: needIndex() -->
+              <!-- ko if: isIndexNeeded() -->
               <div class="control-group">
                 <label class="control-label" for="address_index">Индекс:</label>
                 <div class="span3">
