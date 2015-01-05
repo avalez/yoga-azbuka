@@ -224,7 +224,7 @@ $(function() {
 
       this.isAddressMoscow = ko.pureComputed(function() {
           var address = this.addressCity();
-          return address && address.split(",")[0] == 'Москва';
+          return address && address.indexOf('Москва') >= 0 && address.indexOf('Россия') >= 0;
       }, this);
 
       this.isAddressRussia = ko.pureComputed(function() {
@@ -374,7 +374,7 @@ $(function() {
   // https://code.google.com/p/yogamamadvd/source/browse/trunk/catalog/view/theme/yogamamadvd/templates/account/register.html#219
   $('.typeahead').typeahead({
     source: function(query, process) {
-      var url = "http://ws.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&maxRows=10&stye=full&username=avalez&lang=ru";
+      var url = "http://ws.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&cities=cities1000&maxRows=10&stye=full&username=avalez&lang=ru";
       $.getJSON(url, function(data) {
         process($.map(data.geonames, function(item) {
           return item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName + ", " + item.countryCode;
