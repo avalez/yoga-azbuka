@@ -176,13 +176,13 @@ $(function() {
           disable: false,
           text: 'Почта',
           comment: ko.pureComputed(function() {
-              return this.addressIsRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
+              return this.isAddressRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
             }, this)
       }, {
           disable: ko.observable(false),
           text: 'EMS',
           comment: ko.pureComputed(function() {
-              return this.addressIsRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
+              return this.isAddressRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
             }, this)
         }, {
           disable: ko.observable(false),
@@ -222,17 +222,17 @@ $(function() {
           return this.productCost(this.poster());
       }, this);
 
-      this.addressIsMoscow = ko.pureComputed(function() {
+      this.isAddressMoscow = ko.pureComputed(function() {
           var address = this.addressCity();
           return address && address.split(",")[0] == 'Москва';
       }, this);
 
-      this.addressIsRussia = ko.pureComputed(function() {
+      this.isAddressRussia = ko.pureComputed(function() {
           var address = this.addressCity();
           return address && address.split(",")[3].trim() == 'RU';
       }, this);
 
-      this.deliveryIsPrepaid = ko.pureComputed(function() {
+      this.isDeliveryPrepaid = ko.pureComputed(function() {
           var delivery = this.delivery();
           return !delivery || ['Почта', 'EMS'].indexOf(delivery.text) != -1;
       }, this);
@@ -247,11 +247,11 @@ $(function() {
       };
 
       this.addressCity.subscribe(function() {
-          var addressIsMoscow = self.addressIsMoscow();
-          self.deliveryOptions[0].disable(!addressIsMoscow);
-          self.deliveryOptions[1].disable(!addressIsMoscow);
-          self.deliveryOptions[3].disable(addressIsMoscow);
-          self.deliveryOptions[4].disable(addressIsMoscow);
+          var isAddressMoscow = self.isAddressMoscow();
+          self.deliveryOptions[0].disable(!isAddressMoscow);
+          self.deliveryOptions[1].disable(!isAddressMoscow);
+          self.deliveryOptions[3].disable(isAddressMoscow);
+          self.deliveryOptions[4].disable(isAddressMoscow);
           var delivery = self.delivery();
           if (delivery && $.isFunction(delivery.disable) && delivery.disable()) {
               self.delivery('');
@@ -259,7 +259,7 @@ $(function() {
       });
 
       this.delivery.subscribe(function() {
-          self.paymentOptions[0].disable(self.deliveryIsPrepaid());
+          self.paymentOptions[0].disable(self.isDeliveryPrepaid());
           var payment = self.payment();
           if (payment && $.isFunction(payment.disable) && payment.disable()) {
               self.payment('');
@@ -278,18 +278,18 @@ $(function() {
           var weightFactor = Math.max(0, Math.floor((poster + cards - 1) / 2));
           if (delivery.text == 'Почта') {
               if (poster > 0) {
-                  cost = 100 + (this.addressIsRussia() ? 200 : 1000);
+                  cost = 100 + (this.isAddressRussia() ? 200 : 1000);
               } else if (cards > 0) {
-                  cost =  this.addressIsRussia() ? 100 : 300;
+                  cost =  this.isAddressRussia() ? 100 : 300;
               }
-              cost += weightFactor * (this.addressIsRussia() ? 50 : 150);
+              cost += weightFactor * (this.isAddressRussia() ? 50 : 150);
           } else if (delivery.text == 'EMS') {
               if (poster > 0) {
-                  cost = 100 + (this.addressIsRussia() ? 650 : 1250);
+                  cost = 100 + (this.isAddressRussia() ? 650 : 1250);
               } else if (cards > 0) {
-                  cost = this.addressIsRussia() ? 650 : 1250;
+                  cost = this.isAddressRussia() ? 650 : 1250;
               }
-              cost += weightFactor * (this.addressIsRussia() ? 50 : 200);
+              cost += weightFactor * (this.isAddressRussia() ? 50 : 200);
           } else if (delivery.text == 'Курьер') {
               cost = 350;
           }
@@ -316,17 +316,17 @@ $(function() {
           return this.cardsCost() + this.posterCost() + this.deliveryCost() + this.paymentCost();
       }, this);
 
-      this.needPhone = ko.pureComputed(function() {
+      this.isPhoneNeeded = ko.pureComputed(function() {
           var delivery = this.delivery();
           return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) != -1);
       }, this);
 
-      this.needStreet = ko.pureComputed(function() {
+      this.isStreetNeeded = ko.pureComputed(function() {
           var delivery = this.delivery();
           return delivery && (['Самовывоз'].indexOf(delivery.text) == -1);
       }, this);
 
-      this.needIndex = ko.pureComputed(function() {
+      this.isIndexNeeded = ko.pureComputed(function() {
           var delivery = this.delivery();
           return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) == -1);
       }, this);
@@ -345,14 +345,14 @@ $(function() {
           if (delivery) {
               order.push("Способ доставки: " + delivery.text);
           }
-          if (this.needPhone()) {
+          if (this.isPhoneNeeded()) {
               order.push("Телефон: " + (this.phone() || ''));
           }
-          if (this.needStreet()) {              
+          if (this.isStreetNeeded()) {              
               order.push("Адрес: " + (this.addressStreet() || ''));
               order.push("Город: " + (this.addressCity() || ''));
           }
-          if (this.needIndex()) {              
+          if (this.isIndexNeeded()) {              
               order.push("Индекс: " + (this.addressIndex() || ''));
           }
           var payment = this.payment();
