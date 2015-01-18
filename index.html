@@ -291,7 +291,7 @@
                 </div>
               </div>
               <div class="form-actions">
-                <input type="submit" class="btn btn-success" name="submit" value="Продолжить">
+                <input type="submit" class="btn btn-success" name="submit" value="Оформить заказ">
                 <a class="btn" href="#wizard" data-slide="prev">Отменить</a>
               </div>
             </form>
@@ -344,9 +344,15 @@
               </div>
               <!-- /ko -->
               <div class="control-group with-comment">
+                <label class="control-label">Комментарий к заказу</label>
+                <div class="span7">
+                    <input name="comment" type="text" data-bind="value: comment" class="text"></input>
+                </div>
+              </div>
+              <div class="control-group">
                 <label class="control-label">Заказ</label>
                 <div class="span7">
-                    <textarea name="order" data-bind="text: order().join('\n')" rows="7" class="input-xxlarge" readonly></textarea>
+                    <textarea name="order" data-bind="text: order" rows="6" class="input-xxlarge" readonly></textarea>
                 </div>
               </div>
               <div class="control-group with-comment">

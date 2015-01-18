@@ -204,6 +204,7 @@ $(function() {
       this.phone = ko.observable();
       this.addressStreet = ko.observable();
       this.addressIndex = ko.observable();
+      this.comment = ko.observable();
 
       this.discount = ko.pureComputed(function() {
           return this.cards() + this.poster() >= 10 ? 0.1 : 0;
@@ -265,6 +266,15 @@ $(function() {
               self.payment('');
               $('button[name="payment"].active').removeClass('active');
           }
+          if (!self.isPhoneNeeded()) {
+              self.phone('');
+          }
+          if (!self.isStreetNeeded()) {
+              self.addressStreet('');
+          }
+          if (!self.isIndexNeeded()) {
+              self.addressIndex('');
+          }
       });
 
       this.deliveryCost = ko.pureComputed(function() {
@@ -318,49 +328,70 @@ $(function() {
 
       this.isPhoneNeeded = ko.pureComputed(function() {
           var delivery = this.delivery();
-          return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) != -1);
+          return delivery && (['Самовывоз', 'Курьер', 'Другое'].indexOf(delivery.text) != -1);
       }, this);
 
       this.isStreetNeeded = ko.pureComputed(function() {
           var delivery = this.delivery();
-          return delivery && (['Самовывоз'].indexOf(delivery.text) == -1);
+          return delivery && (['Самовывоз', 'Другое'].indexOf(delivery.text) == -1);
       }, this);
 
       this.isIndexNeeded = ko.pureComputed(function() {
           var delivery = this.delivery();
-          return delivery && (['Самовывоз', 'Курьер'].indexOf(delivery.text) == -1);
+          return delivery && (['Самовывоз', 'Курьер', 'Другое'].indexOf(delivery.text) == -1);
       }, this);
 
       this.order = ko.pureComputed(function() {
           var order = [];
+          var product = '';
           var cards = this.cards();
           if (cards > 0) {
-            order.push("Карточки: " + cards + " шт.");
+            product += "Карточки: " + cards + " шт.";
           }
           var poster = this.poster();
           if (poster > 0) {
-            order.push("Плакат: " + poster + " шт.");
+            if (product) {
+                product += ', ';
+            }
+            product += "Плакат: " + poster + " шт.";
           }
+          order.push(product);
           var delivery = this.delivery();
           if (delivery) {
               order.push("Способ доставки: " + delivery.text);
           }
-          if (this.isPhoneNeeded()) {
-              order.push("Телефон: " + (this.phone() || ''));
-          }
+          var address = '';
           if (this.isStreetNeeded()) {              
-              order.push("Адрес: " + (this.addressStreet() || ''));
-              order.push("Город: " + (this.addressCity() || ''));
+              address += (this.addressStreet() || '');
           }
-          if (this.isIndexNeeded()) {              
-              order.push("Индекс: " + (this.addressIndex() || ''));
+          if (address && this.addressCity()) {
+              address += ', ';
           }
+          address += (this.addressCity() || '');
+          if (this.isIndexNeeded()) {
+              if (address && this.addressIndex()) {
+                  address += ', ';
+              }
+              address += (this.addressIndex() || '');
+          }
+          if (this.isPhoneNeeded() && this.phone()) {
+              if (address && this.phone()) {
+                  address += ', ';
+              }
+              if (this.phone()) {
+                  address += "тел. " + this.phone();
+              }
+          }
+          order.push("Адрес: " + address);
           var payment = this.payment();
           if (payment) {
               order.push("Способ оплаты: " + payment.text);
           }
           order.push("Стоимость: " + this.totalCost() + " руб.");
-          return order;
+          if (this.comment()) {
+              order.push("Комментарий: " + this.comment());
+          }
+          return order.join('\n');
       }, this);
   };
 
