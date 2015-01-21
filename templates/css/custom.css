@@ -79,9 +79,33 @@ body {
 /* ------------------------------------------------------------------------------
   H E A D E R
 --------------------------------------------------------------------------------- */
-.navbar-fixed-top {
-  position: static;    
-  margin-bottom: 20px;
+.top ul {
+  float: none;
+  margin: auto;
+  list-style: none;
+  display: table;
+}
+.top ul li {
+  display: inline-block;
+  white-space: nowrap;
+}
+.top ul li + li {
+  margin-left: 20px;
+}
+.top ul li + li:before {
+  margin-left: -10px;
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+  left: 0px;
+  content: url("/images/favicon.png");
+}
+.top ul li a.active {
+  text-decoration: underline;
+  pointer-events: none; 
+}
+.top .row-fluid {
+  margin: 0;
 }
 .hero-unit {
   -webkit-border-radius: 0px;
