@@ -224,13 +224,15 @@ $(function() {
       }, this);
 
       this.isAddressMoscow = ko.pureComputed(function() {
-          var address = this.addressCity();
-          return address && address.indexOf('Москва') >= 0 && address.indexOf('Россия') >= 0;
+          var address = this.addressCity() || '';
+          address = address.toLowerCase();
+          return address.indexOf('москва') >= 0 && address.indexOf('россия') >= 0;
       }, this);
 
       this.isAddressRussia = ko.pureComputed(function() {
-          var address = this.addressCity();
-          return address && address.split(",")[3].trim() == 'RU';
+          var address = this.addressCity() || '';
+          address = address.toLowerCase();
+          return address.indexOf('россия') >= 0;
       }, this);
 
       this.isDeliveryPrepaid = ko.pureComputed(function() {
@@ -408,7 +410,7 @@ $(function() {
       var url = "http://ws.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&cities=cities1000&maxRows=10&stye=full&username=avalez&lang=ru";
       $.getJSON(url, function(data) {
         process($.map(data.geonames, function(item) {
-          return item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName + ", " + item.countryCode;
+          return item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName;
         }));
       });
     },
