@@ -436,4 +436,10 @@ $(function() {
   	return this.optional(element) || !enabled || match.length > 2;
   }, "Пожалуйста введите Фамилию Имя Отчетсво.");
 
+  var width = $('#volchenko').parent().width();
+  Caman("#volchenko", function () {
+    this.resize({width: width});
+    this.sunrise();
+    this.render();
+  });
 });
