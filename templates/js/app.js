@@ -435,5 +435,13 @@ $(function() {
   	var match = full_name.split(' ');
   	return this.optional(element) || !enabled || match.length > 2;
   }, "Пожалуйста введите Фамилию Имя Отчетсво.");
+  
+  $('.more').hide();
+  $('.readmore').click(function(e) {
+     e.preventDefault();
+     var $el = $(e.target);
+     $('.more', $el.parent().parent()).show();
+     $el.hide(); 
+  });
 
 });
