@@ -39,9 +39,14 @@ var fetch_content = function(callback) {
                 } else {
                     paras_to_show = teaser_length;
                 }
+                
+                var image = post_contents.content.match(/<img.*?>/);
+                if (image) {
+                    post_contents.image = image[0];
+                }
 
                 post_contents.is_teaser = (paras_to_show < post_paras.length);
-                post_contents.content = post_paras.slice(0, paras_to_show).join("");
+                post_contents.content = post_paras.slice(0, paras_to_show).join("").replace(/^<div.*?>/, '');
 
                 recent_posts.push(post_contents);
 
