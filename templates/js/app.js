@@ -27,17 +27,16 @@ $(function() {
         if ($('#download')[0]) return;
         share.post_id = response.post_id;
         $fbFeed.parent().append(
-          $("<button/>").attr({
-            class: "btn btn-success"
-          }).append($("<a/>").attr({
+          $("<a/>").attr({
+            class: "btn btn-success",
             href: "/images/dogbig.jpg",
             download: "dogbig.jpg",
             style: "color: #fff"
-          }).text('Скачать раскраску')));
+          }).text('Скачать раскраску'));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
         ga('send', 'event', 'social', 'facebook', 'share');
+        keen.addEvent("shares", share);
       }
-      keen.addEvent("shares", share);
     });
   });
 
