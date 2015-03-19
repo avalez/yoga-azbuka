@@ -211,7 +211,7 @@ $(function() {
 
       this.productCost = function(value) {
           var discount = this.discount();
-          return value * 399 * (1 - discount);
+          return value * 499 * (1 - discount);
       };
 
       this.cardsCost = ko.pureComputed(function() {
