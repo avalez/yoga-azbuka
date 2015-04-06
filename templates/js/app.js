@@ -29,8 +29,8 @@ $(function() {
         $fbFeed.parent().append(
           $("<a/>").attr({
             class: "btn btn-success",
-            href: "/images/dogbig.jpg",
-            download: "dogbig.jpg",
+            href: "/images/treebig.jpg",
+            download: "tree.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску'));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
@@ -291,7 +291,8 @@ $(function() {
               if (poster > 0) {
                   cost = 100 + (this.isAddressRussia() ? 200 : 1000);
               } else if (cards > 0) {
-                  cost =  this.isAddressRussia() ? 100 : 300;
+                  cost = cards > 4 ? 50 : 20;
+                  cost += this.isAddressRussia() ? 100 : 300;
               }
               cost += weightFactor * (this.isAddressRussia() ? 50 : 150);
           } else if (delivery.text == 'EMS') {
