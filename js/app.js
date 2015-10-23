@@ -78,6 +78,14 @@ $(function() {
   $('#wizard').on('slid', function(event) {
     if ($(this.children[0]).hasClass('active')) {
       gridrotator.$el.resize();
+    } else if ($(this.children[1]).hasClass('active')) {
+      var url = $('form.order').attr('action');
+      $.ajax({
+        url: url,
+        cache: false,
+        type: 'GET',
+        crossDomain: true
+      });
     }
   });
 
@@ -130,7 +138,6 @@ $(function() {
         cache: false,
         type: 'POST',
         data: $form.serialize(),
-        dataType: "jsonp",
         //timeout: 1000,
         crossDomain: true,
         success: function (data, status) {
