@@ -296,7 +296,7 @@ $(function() {
           var weightFactor = Math.max(0, Math.floor((poster + cards - 1) / 2));
           if (delivery.text == 'Почта') {
               if (poster > 0) {
-                  cost = 100 + (this.isAddressRussia() ? 200 : 1000);
+                  cost = 100 + (this.isAddressRussia() ? 250 : 1000);
               } else if (cards > 0) {
                   cost = cards > 4 ? 50 : 20;
                   cost += this.isAddressRussia() ? 100 : 300;
@@ -319,7 +319,7 @@ $(function() {
         var payment = this.payment();
         if (payment && payment.text == 'PayPal') {
             var totalCost = this.cardsCost() + this.posterCost() + this.deliveryCost();
-            return Math.round(totalCost * .05);
+            return Math.round(totalCost * .047) + 10;
         } else {
             return 0;
         }
