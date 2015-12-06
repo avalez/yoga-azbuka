@@ -296,10 +296,10 @@ $(function() {
           var weightFactor = Math.max(0, Math.floor((poster + cards - 1) / 2));
           if (delivery.text == 'Почта') {
               if (poster > 0) {
-                  cost = this.isAddressRussia() ? 150 : 350;
+                  cost += this.isAddressRussia() ? 150 : 350;
               }
               if (cards > 0) {
-                  cost = cards > 4 ? 50 : 20;
+                  cost += cards > 4 ? 50 : 20;
                   cost += this.isAddressRussia() ? 100 : 300;
               }
               cost += weightFactor * (this.isAddressRussia() ? 50 : 150);
