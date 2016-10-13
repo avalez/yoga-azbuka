@@ -142,9 +142,9 @@ $(function() {
         crossDomain: true,
         success: function (data, status) {
             if (data == 'OK') {
-                $form.parent().html("Спасибо за Вашу заявку")
+                $form.parent().html("<h3>Спасибо за Ваш заказ!</h3><p>Ваш заказ успешно оформлен.</p>")
             } else {
-                $form.parent().html("Ошибка: " + data);
+                $form.parent().html('<h3 class="error">Ошибка :(</h3><p>' + data + '</p');
             }
         },
         error: function (xOptions, textStatus) {
