@@ -29,8 +29,8 @@ $(function() {
         $fbFeed.parent().append(
           $("<a/>").attr({
             class: "btn btn-success",
-            href: "/images/treebig.jpg",
-            download: "tree.jpg",
+            href: "/images/peabig.jpg",
+            download: "pea.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску'));
         ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
