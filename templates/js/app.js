@@ -205,7 +205,7 @@ $(function() {
       }, {
           disable: false,
           text: 'Перевод',
-          comment: 'Перевод на карту или счет Альфабанк'
+          comment: 'Перевод на карту или счет Сбербанк'
       }];
       this.phone = ko.observable();
       this.addressStreet = ko.observable();
