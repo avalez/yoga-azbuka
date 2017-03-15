@@ -356,7 +356,7 @@ $(function() {
           var product = '';
           var cards = this.cards();
           if (cards > 0) {
-            product += "Карточки: " + cards + " шт.";
+            product += "Набор карточек: " + cards + " шт.";
           }
           var poster = this.poster();
           if (poster > 0) {
