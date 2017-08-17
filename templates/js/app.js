@@ -94,7 +94,7 @@ $(function() {
     isLoading === true ? $e.show() : $e.hide();
   }
 
-  $.validator.setDefaults({ 
+  $.validator.setDefaults({
       ignore: [], // validate hidden fields
   });
   var $form = $('form.product');
@@ -122,7 +122,7 @@ $(function() {
       $('#wizard').carousel('next');
     }
   });
-  
+
   var submitted = false;
   var $form = $('form.order');
   $form.validate({
@@ -130,7 +130,7 @@ $(function() {
       if (submitted) {
         return;
       }
-      ga('send', 'event', 'order', 'create'); 
+      ga('send', 'event', 'order', 'create');
       submitted = true;
       loading(true);
       $.ajax({
@@ -218,7 +218,7 @@ $(function() {
 
       this.productCost = function(value) {
           var discount = this.discount();
-          return value * 550 * (1 - discount);
+          return value * 590 * (1 - discount);
       };
 
       this.cardsCost = ko.pureComputed(function() {
@@ -264,7 +264,7 @@ $(function() {
           var delivery = self.delivery();
           if (delivery && $.isFunction(delivery.disable) && delivery.disable()) {
               self.delivery('');
-          }      
+          }
       });
 
       this.delivery.subscribe(function() {
@@ -296,11 +296,11 @@ $(function() {
           var weightFactor = Math.max(0, Math.floor((poster + cards - 1) / 2));
           if (delivery.text == 'Почта') {
               if (poster > 0) {
-                  cost += this.isAddressRussia() ? 150 : 350;
+                  cost += this.isAddressRussia() ? 200 : 600;
               }
               if (cards > 0) {
                   cost += cards > 4 ? 50 : 20;
-                  cost += this.isAddressRussia() ? 100 : 300;
+                  cost += this.isAddressRussia() ? 130 : 370;
               }
               cost += weightFactor * (this.isAddressRussia() ? 50 : 150);
           } else if (delivery.text == 'EMS') {
@@ -371,7 +371,7 @@ $(function() {
               order.push("Способ доставки: " + delivery.text);
           }
           var address = '';
-          if (this.isStreetNeeded()) {              
+          if (this.isStreetNeeded()) {
               address += (this.addressStreet() || '');
           }
           if (address && this.addressCity()) {
@@ -406,7 +406,7 @@ $(function() {
   };
 
   ko.applyBindings(new ViewModel(1, 0));
-  
+
   var ratings = $('select.barrating');
   ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: function(value, text) {
       ratings.change(); // notify Knockout
@@ -437,19 +437,19 @@ $(function() {
   	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/);
   	return this.optional(element) || (phone_number.length > 10 && match);
   }, "Пожалуйста введите номер телефона.");
-  
+
   $.validator.addMethod("fullName", function(full_name, element, enabled) {
     full_name = full_name.trim().replace(/\s+/g, ' ');
   	var match = full_name.split(' ');
   	return this.optional(element) || !enabled || match.length > 2;
   }, "Пожалуйста введите Фамилию Имя Отчетсво.");
-  
+
   $('.more').hide();
   $('.readmore').click(function(e) {
      e.preventDefault();
      var $el = $(e.target);
      $('.more', $el.parent().parent()).show();
-     $el.hide(); 
+     $el.hide();
   });
 
 });
