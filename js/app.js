@@ -1,6 +1,3 @@
-if (window.location.host.indexOf("yoga-azbuka.ru") >= 0 && window.location.protocol != "https:") {
-  window.location.protocol = "https:"
-}
 $(function() {
   var keen = new Keen({
     projectId: "5404e1400727190dcd000006",
