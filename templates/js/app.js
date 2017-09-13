@@ -1,3 +1,6 @@
+if (window.location.host.indexOf("yoga-azbuka.ru") >= 0 && window.location.protocol != "https:") {
+  window.location.protocol = "https:"
+}
 $(function() {
   var keen = new Keen({
     projectId: "5404e1400727190dcd000006",
@@ -11,15 +14,15 @@ $(function() {
     }
   };
 
-  // http://stackoverflow.com/questions/23116001/facebook-like-and-share-button-with-callback
+  // https://stackoverflow.com/questions/23116001/facebook-like-and-share-button-with-callback
   var $fbFeed = $('#fb-feed');
   $fbFeed.click(function(e) {
     e.preventDefault();
     FB.ui({
       method: 'feed',
       name: 'Йога Азбука для детей',
-      link: 'http://www.yoga-azbuka.ru/',
-      picture: 'http://www.yoga-azbuka.ru/images/cards-sample.jpg',
+      link: 'https://www.yoga-azbuka.ru/',
+      picture: 'https://www.yoga-azbuka.ru/images/cards-sample.jpg',
       caption: 'Плакат, карточки и расраски с азбукой для занятий йогой с детьми',
       description: 'Материалы „Йога-азбука для детей“ могут стать отличным подароком для детей и родителей, увлеченных йогой.'
     }, function(response) {
@@ -33,7 +36,7 @@ $(function() {
             download: "pea.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску'));
-        ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
+        ga('send', 'social', 'facebook', 'share', 'https://www.yoga-azbuka.ru/', {page: '/'});
         ga('send', 'event', 'social', 'facebook', 'share');
         keen.addEvent("shares", share);
       }
@@ -45,7 +48,7 @@ $(function() {
     e.preventDefault();
     FB.ui({
       method: 'share',
-      href: 'http://www.yoga-azbuka.ru/',
+      href: 'https://www.yoga-azbuka.ru/',
     }, function(response) {
       if (response && !response.error_code && false) {
         if ($('#download')[0]) return;
@@ -58,7 +61,7 @@ $(function() {
             download: "startbig.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску')));
-        ga('send', 'social', 'facebook', 'share', 'http://www.yoga-azbuka.ru/', {page: '/'});
+        ga('send', 'social', 'facebook', 'share', 'https://www.yoga-azbuka.ru/', {page: '/'});
         ga('send', 'event', 'social', 'facebook', 'share');
       } else if (response) {
         share.error_code = response.error_code; // debug
@@ -415,7 +418,7 @@ $(function() {
   // https://code.google.com/p/yogamamadvd/source/browse/trunk/catalog/view/theme/yogamamadvd/templates/account/register.html#219
   $('.typeahead').typeahead({
     source: function(query, process) {
-      var url = "http://ws.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&cities=cities1000&maxRows=10&stye=full&username=avalez&lang=ru";
+      var url = "https://ws.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&cities=cities1000&maxRows=10&stye=full&username=avalez&lang=ru";
       $.getJSON(url, function(data) {
         process($.map(data.geonames, function(item) {
           return item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName;
@@ -425,7 +428,7 @@ $(function() {
     minLength: 3
   });
 
-  // http://stackoverflow.com/questions/2457032/jquery-validation-change-default-error-message
+  // https://stackoverflow.com/questions/2457032/jquery-validation-change-default-error-message
   $.extend($.validator.messages, {
       required: "Это поле обязательное.",
       number: "Пожалуйста введите число.",
