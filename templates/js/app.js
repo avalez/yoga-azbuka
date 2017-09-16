@@ -50,15 +50,15 @@ $(function() {
       method: 'share',
       href: 'https://www.yoga-azbuka.ru/',
     }, function(response) {
-      if (response && !response.error_code && false) {
+      if (response && !response.error_code) {
         if ($('#download')[0]) return;
         $fbShare.parent().append(
           $("<button/>").attr({
             class: "btn btn-success"
           }).append($("<a/>").attr({
             id: "download",
-            href: "/images/starbig.jpg",
-            download: "startbig.jpg",
+            href: "/images/peabig.jpg",
+            download: "pea.jpg",
             style: "color: #fff"
           }).text('Скачать раскраску')));
         ga('send', 'social', 'facebook', 'share', 'https://www.yoga-azbuka.ru/', {page: '/'});
