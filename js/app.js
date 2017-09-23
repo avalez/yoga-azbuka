@@ -418,7 +418,7 @@ $(function() {
   // https://code.google.com/p/yogamamadvd/source/browse/trunk/catalog/view/theme/yogamamadvd/templates/account/register.html#219
   $('.typeahead').typeahead({
     source: function(query, process) {
-      var url = "https://ws.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&cities=cities1000&maxRows=10&stye=full&username=avalez&lang=ru";
+      var url = "https://secure.geonames.org/searchJSON?name_startsWith=" + query + "&featureClass=P&cities=cities1000&maxRows=10&stye=full&username=avalez&lang=ru";
       $.getJSON(url, function(data) {
         process($.map(data.geonames, function(item) {
           return item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName;
