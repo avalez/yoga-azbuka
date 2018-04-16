@@ -176,7 +176,7 @@ $(function() {
       this.deliveryOptions = [{
           disable: ko.observable(true),
           text: 'Самовывоз',
-          comment: 'м.Щелковская, м.Павелецкая или м.Водный Стадион'
+          comment: 'м.Щелковская или м.Водный Стадион'
       }, {
           disable: ko.observable(true),
           text: 'Курьер',
