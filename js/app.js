@@ -408,7 +408,7 @@ $(function() {
       }, this);
   };
 
-  ko.applyBindings(new ViewModel(1, 0));
+  ko.applyBindings(new ViewModel(0, 1));
 
   var ratings = $('select.barrating');
   ratings.barrating('show', {showValues: true, showSelectedRating:false, onSelect: function(value, text) {
