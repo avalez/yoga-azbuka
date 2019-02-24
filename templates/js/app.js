@@ -219,17 +219,17 @@ $(function() {
           return this.cards() + this.poster() >= 10 ? 0.1 : 0;
       }, this);
 
-      this.productCost = function(value) {
+      this.productCost = function(value, cost) {
           var discount = this.discount();
-          return value * 590 * (1 - discount);
+          return value * cost * (1 - discount);
       };
 
       this.cardsCost = ko.pureComputed(function() {
-          return this.productCost(this.cards());
+          return this.productCost(this.cards(), 790);
       }, this);
 
       this.posterCost = ko.pureComputed(function() {
-          return this.productCost(this.poster());
+          return this.productCost(this.poster(), 690);
       }, this);
 
       this.isAddressMoscow = ko.pureComputed(function() {
