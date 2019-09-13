@@ -162,7 +162,7 @@ $(function() {
     rules: {
       full_name: {
         fullName: function(element) {
-          return ['Почта', 'EMS'].indexOf($(".order input[name='delivery']").val()) != -1;
+          return ['Почта'].indexOf($(".order input[name='delivery']").val()) != -1;
         }
       }
     }
@@ -176,27 +176,21 @@ $(function() {
       this.deliveryOptions = [{
           disable: ko.observable(true),
           text: 'Самовывоз',
-          comment: 'м.Щелковская или м.Чертановская'
+          comment: 'м.Чертановская'
       }, {
           disable: ko.observable(true),
           text: 'Курьер',
-          comment: 'Доставка до станции метро 300 руб'
+          comment: 'Доставка до адреса 350 руб'
       }, {
-          disable: false,
+          disable: ko.observable(true),
           text: 'Почта',
           comment: ko.pureComputed(function() {
-              return this.isAddressRussia() ? 'Срок доставки 7-10 дней' : 'Срок доставки 10-14 дней';
+              return this.isAddressRussia() ? 'Транспортной компанией СДЭК 2-4 дня' : 'Срок доставки 3-30 дней';
             }, this)
       }, {
           disable: ko.observable(false),
-          text: 'EMS',
-          comment: ko.pureComputed(function() {
-              return this.isAddressRussia() ? 'Срок доставки 2-4 дня' : 'Срок доставки 4-14 дней';
-            }, this)
-        }, {
-          disable: ko.observable(false),
           text: 'Другое',
-          comment: 'Самовывоз/курьер в Москве'
+          comment: 'На сайте партнеров: http://bambinilavka.ru/shop/komplekt-yoga-azbuka'
       }];
       this.payment = ko.observable('');
       this.paymentOptions = [{
@@ -246,7 +240,7 @@ $(function() {
 
       this.isDeliveryPrepaid = ko.pureComputed(function() {
           var delivery = this.delivery();
-          return !delivery || ['Почта', 'EMS'].indexOf(delivery.text) != -1;
+          return !delivery || ['Почта'].indexOf(delivery.text) != -1;
       }, this);
 
       var self = this;
@@ -258,12 +252,19 @@ $(function() {
           self.payment(value);
       };
 
+      this.cards.subscribe(function (value) {
+          self.deliveryOptions[2].disable(self.poster() + value < 3);
+      });
+
+      this.poster.subscribe(function (value) {
+          self.deliveryOptions[2].disable(self.cards() + value < 3);
+      });
+
       this.addressCity.subscribe(function() {
           var isAddressMoscow = self.isAddressMoscow();
           self.deliveryOptions[0].disable(!isAddressMoscow);
           self.deliveryOptions[1].disable(!isAddressMoscow);
           self.deliveryOptions[3].disable(isAddressMoscow);
-          self.deliveryOptions[4].disable(isAddressMoscow);
           var delivery = self.delivery();
           if (delivery && $.isFunction(delivery.disable) && delivery.disable()) {
               self.delivery('');
@@ -298,22 +299,10 @@ $(function() {
           var cost = 0;
           var weightFactor = Math.max(0, Math.floor((poster + cards - 1) / 2));
           if (delivery.text == 'Почта') {
-              if (poster > 0) {
-                  cost += this.isAddressRussia() ? 200 : 600;
+              if (poster + poster > 0 && this.cardsCost() + this.posterCost() < 3000) {
+                  cost += this.isAddressMoscow() ? 150 : this.isAddressRussia() ? 200 : 600;
               }
-              if (cards > 0) {
-                  cost += cards > 4 ? 50 : 20;
-                  cost += this.isAddressRussia() ? 130 : 370;
-              }
-              cost += weightFactor * (this.isAddressRussia() ? 50 : 150);
-          } else if (delivery.text == 'EMS') {
-              if (poster > 0) {
-                  cost = 100 + (this.isAddressRussia() ? 650 : 1250);
-              } else if (cards > 0) {
-                  cost = this.isAddressRussia() ? 650 : 1250;
-              }
-              cost += weightFactor * (this.isAddressRussia() ? 50 : 200);
-          } else if (delivery.text == 'Курьер') {
+           } else if (delivery.text == 'Курьер') {
               cost = 350;
           }
           return cost;
@@ -331,7 +320,7 @@ $(function() {
 
       this.totalComment = ko.pureComputed(function() {
             var delivery = this.delivery();
-            return delivery && ['Почта', 'EMS', 'Другое'].indexOf(delivery.text) >= 0 ?
+            return delivery && ['Почта', 'Другое'].indexOf(delivery.text) >= 0 ?
                 'Конечная стоимость будет указана при оформлении заказа' : '';
         }, this);
 
@@ -436,23 +425,23 @@ $(function() {
   });
 
   $.validator.addMethod("phoneRU", function(phone_number, element) {
-  	phone_number = phone_number.replace(/\s+/g, "");
-  	var match = phone_number.match(/^((\+7)|8)((\(\d{3}\))|(\d{3}))\d\d\d-?\d\d-?\d\d$/);
-  	return this.optional(element) || (phone_number.length > 10 && match);
+      phone_number = phone_number.replace(/\s+/g, "");
+      var match = phone_number.match(/^(\+7|8|\+)\s?(\(?\d\d\d\)?)\s?(\d\d\d)[\s-]?(\d\d\d?)[\s-]?(\d\d\d?)$/);
+      return this.optional(element) || (phone_number.length > 10 && match);
   }, "Пожалуйста введите номер телефона.");
 
   $.validator.addMethod("fullName", function(full_name, element, enabled) {
-    full_name = full_name.trim().replace(/\s+/g, ' ');
-  	var match = full_name.split(' ');
-  	return this.optional(element) || !enabled || match.length > 2;
+      full_name = full_name.trim().replace(/\s+/g, ' ');
+      var match = full_name.split(' ');
+      return this.optional(element) || !enabled || match.length > 2;
   }, "Пожалуйста введите Фамилию Имя Отчетсво.");
 
   $('.more').hide();
   $('.readmore').click(function(e) {
-     e.preventDefault();
-     var $el = $(e.target);
-     $('.more', $el.parent().parent()).show();
-     $el.hide();
+      e.preventDefault();
+      var $el = $(e.target);
+      $('.more', $el.parent().parent()).show();
+      $el.hide();
   });
 
 });
