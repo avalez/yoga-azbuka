@@ -425,23 +425,23 @@ $(function() {
   });
 
   $.validator.addMethod("phoneRU", function(phone_number, element) {
-  	phone_number = phone_number.replace(/\s+/g, "");
-  	var match = phone_number.match(/^(\+7|8|\+)\s?(\(?\d\d\d\)?)\s?(\d\d\d)[\s-]?(\d\d\d?)[\s-]?(\d\d\d?)$/);
-  	return this.optional(element) || (phone_number.length > 10 && match);
+      phone_number = phone_number.replace(/\s+/g, "");
+      var match = phone_number.match(/^(\+7|8|\+)\s?(\(?\d\d\d\)?)\s?(\d\d\d)[\s-]?(\d\d\d?)[\s-]?(\d\d\d?)$/);
+      return this.optional(element) || (phone_number.length > 10 && match);
   }, "Пожалуйста введите номер телефона.");
 
   $.validator.addMethod("fullName", function(full_name, element, enabled) {
-    full_name = full_name.trim().replace(/\s+/g, ' ');
-  	var match = full_name.split(' ');
-  	return this.optional(element) || !enabled || match.length > 2;
+      full_name = full_name.trim().replace(/\s+/g, ' ');
+      var match = full_name.split(' ');
+      return this.optional(element) || !enabled || match.length > 2;
   }, "Пожалуйста введите Фамилию Имя Отчетсво.");
 
   $('.more').hide();
   $('.readmore').click(function(e) {
-     e.preventDefault();
-     var $el = $(e.target);
-     $('.more', $el.parent().parent()).show();
-     $el.hide();
+      e.preventDefault();
+      var $el = $(e.target);
+      $('.more', $el.parent().parent()).show();
+      $el.hide();
   });
 
 });
