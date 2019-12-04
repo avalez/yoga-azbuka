@@ -184,9 +184,7 @@ $(function() {
       }, {
           disable: ko.observable(true),
           text: 'Почта',
-          comment: ko.pureComputed(function() {
-              return this.isAddressRussia() ? 'Транспортной компанией СДЭК 2-4 дня' : 'Срок доставки 3-30 дней';
-            }, this)
+          comment: ko.observable('Срок доставки 3-30 дней')
       }, {
           disable: ko.observable(false),
           text: 'Другое',
@@ -262,12 +260,19 @@ $(function() {
 
       this.addressCity.subscribe(function() {
           var isAddressMoscow = self.isAddressMoscow();
+          var isAddressRussia = self.isAddressRussia();
+          self.deliveryOptions[2].disable(isAddressRussia);
           self.deliveryOptions[0].disable(!isAddressMoscow);
           self.deliveryOptions[1].disable(!isAddressMoscow);
-          self.deliveryOptions[3].disable(isAddressMoscow);
+          self.deliveryOptions[3].disable(isAddressMoscow || !isAddressRussia);
+          if (isAddressRussia) {
+              self.delivery(self.deliveryOptions[3]);
+              $('button[name="delivery"]:contains("Другое")').addClass('active');
+          }
           var delivery = self.delivery();
           if (delivery && $.isFunction(delivery.disable) && delivery.disable()) {
               self.delivery('');
+              $('button[name="delivery"].active').removeClass('active');
           }
       });
 
